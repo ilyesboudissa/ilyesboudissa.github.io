@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title data-key="page_title">Project Showcase | Ilyes Boudissa</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Custom Favicon (Cyan - IB Initials) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%2306B6D4'/%3E%3Ctext x='50' y='50' font-size='50' fill='white' text-anchor='middle' dy='.3em' font-family='Inter, sans-serif' font-weight='bold'%3EIB%3C/text%3E%3C/svg%3E">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#06b6d4', // Cyan 500
+                        dark: '#0f172a',    // Slate 900
+                        darker: '#020617',  // Slate 950
+                        light: '#f8fafc',   // Slate 50
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        html.dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+        }
+        .glass-card:hover {
+            transform: translateY(-2px);
+            border-color: #06b6d4;
+        }
+
+        .dropdown-animate {
+            transform-origin: top right;
+            transition: all 0.2s ease-in-out;
+        }
+        .dropdown-animate.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        .dropdown-animate.visible {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        .timeline-dot {
+            box-shadow: 0 0 0 4px rgba(6, 182, 212, 0.2);
+        }
+
+        /* Map Fixes */
+        #map {
+            z-index: 10; 
+            border-radius: 0.75rem;
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500 selection:text-white bg-light text-slate-800 dark:bg-dark dark:text-f8fafc transition-colors duration-300">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/80 dark:bg-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5 transition-all duration-300" id="navbar">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            
+            <!-- Back to Portfolio Link -->
+            <a href="index.html" class="flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium text-sm group bg-gray-100 dark:bg-slate-800 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">
+                <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                <span data-key="nav_back" class="hidden sm:inline">Back to Portfolio</span>
+                <span class="sm:hidden">Back</span>
+            </a>
+            
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="p-2 rounded-full bg-gray-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors focus:outline-none border border-gray-200 dark:border-slate-700" aria-label="Toggle Dark Mode">
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                </button>
+
+                <!-- Language Dropdown -->
+                <div class="relative pl-3 border-l border-gray-300 dark:border-gray-700">
+                    <button id="langDropdownBtn" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none border border-gray-200 dark:border-slate-700" onclick="toggleLangDropdown(event)">
+                        <span id="currentFlag" class="w-5 h-3.5 rounded-sm overflow-hidden block"></span>
+                        <span id="currentLangCode" class="font-bold text-slate-700 dark:text-gray-200 text-xs">EN</span>
+                        <svg class="w-3 h-3 text-slate-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div id="langDropdownMenu" class="dropdown-animate hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 z-50 overflow-hidden">
+                        <button onclick="selectLanguage('en')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
+                            <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-full h-full object-cover"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+                            </span>
+                            <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">English</span>
+                        </button>
+                        <button onclick="selectLanguage('de')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
+                             <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" class="w-full h-full object-cover"><rect width="5" height="3" y="0" x="0" fill="#000"/><rect width="5" height="2" y="1" x="0" fill="#D00"/><rect width="5" height="1" y="2" x="0" fill="#FFCE00"/></svg>
+                            </span>
+                            <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">Deutsch</span>
+                        </button>
+                        <button onclick="selectLanguage('fr')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
+                             <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="w-full h-full object-cover"><rect width="1" height="2" x="0" fill="#0055A4"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#EF4135"/></svg>
+                            </span>
+                            <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">Français</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-[-1]">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <main class="pt-32 pb-20 max-w-4xl mx-auto px-6">
+        <section class="mb-20 text-center md:text-left reveal">
+            <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                <div class="w-8 h-px bg-primary"></div>
+                <span class="font-mono text-xs tracking-[0.2em] uppercase text-primary font-bold" data-key="proj_label">Featured Project</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                <span data-key="proj_title_p1">46 km Pipeline Rehabilitation</span><br>
+                <span class="text-primary" data-key="proj_title_p2">Fiberglass 24" — Saharan Region</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto md:mx-0 leading-relaxed" data-key="proj_subtitle">
+                Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain for <strong class="text-primary">SONATRACH</strong> — Africa's largest oil & gas company — replacing carbon steel with advanced fiberglass (GRP) technology under an EPC framework.
+            </p>
+            <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary uppercase" data-key="tag_1">SONATRACH</span>
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-slate-600 dark:text-gray-400 uppercase" data-key="tag_2">Oil & Gas — Upstream</span>
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-slate-600 dark:text-gray-400 uppercase" data-key="tag_3">EPC Contract</span>
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-slate-600 dark:text-gray-400 uppercase" data-key="tag_4">46 km Pipeline</span>
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 text-slate-600 dark:text-gray-400 uppercase" data-key="tag_5">24" Diameter GRP</span>
+                <span class="font-mono text-xs font-bold tracking-wider px-4 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-500 uppercase" data-key="tag_6">✓ Delivered</span>
+            </div>
+        </section>
+
+        <hr class="border-gray-200 dark:border-gray-800 mb-20">
+
+        <!-- ═══════════════════ KEY METRICS ═══════════════════ -->
+        <section class="mb-20 reveal">
+            <div class="font-mono text-xs tracking-[0.2em] uppercase text-slate-500 dark:text-gray-500 mb-3" data-key="sec1_label">01 — Key Metrics</div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8" data-key="sec1_title">Project at a Glance</h2>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-amber-500 text-center md:text-left">
+                    <div class="text-2xl md:text-3xl font-bold font-mono text-amber-500 mb-1">$10M–$15M</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wide font-medium" data-key="kpi1_label">Total Project Budget Range</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-green-500 text-center md:text-left">
+                    <div class="text-2xl md:text-3xl font-bold font-mono text-green-500 mb-1">~40%</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wide font-medium" data-key="kpi2_label">Procurement Share of Budget</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-blue-500 text-center md:text-left">
+                    <div class="text-2xl md:text-3xl font-bold font-mono text-blue-500 mb-1">20+</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wide font-medium" data-key="kpi3_label">Procurement Line Items</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl border-t-4 border-t-red-500 text-center md:text-left">
+                    <div class="text-2xl md:text-3xl font-bold font-mono text-red-500 mb-1">12+</div>
+                    <div class="text-xs text-slate-500 dark:text-gray-400 uppercase tracking-wide font-medium" data-key="kpi4_label">Suppliers Managed</div>
+                </div>
+            </div>
+
+            <!-- Project Delivered Badge -->
+            <div class="flex items-center gap-4 p-5 md:p-6 bg-green-500/10 border border-green-500/20 rounded-xl">
+                <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0">✓</div>
+                <div>
+                    <div class="font-bold text-green-600 dark:text-green-500 mb-1" data-key="badge_title">Project Successfully Delivered</div>
+                    <div class="text-sm text-slate-600 dark:text-gray-400" data-key="badge_desc">All procurement packages awarded, manufactured, inspected, and delivered to site. Full commissioning completed.</div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200 dark:border-gray-800 mb-20">
+
+        <!-- ═══════════════════ PROCUREMENT SUMMARY ═══════════════════ -->
+        <section class="mb-20 reveal">
+            <div class="font-mono text-xs tracking-[0.2em] uppercase text-slate-500 dark:text-gray-500 mb-3" data-key="sec2_label">02 — Procurement Summary</div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-8" data-key="sec2_title">Disciplines & Material Categories</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xl flex-shrink-0 font-mono">01</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc1_title">Piping & Pipeline</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc1_desc">GRP fittings, flanges, manual valves, check valves, insulating joints, and bulk pipe accessories for 46 km trunkline.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center text-xl flex-shrink-0 font-mono">02</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc2_title">Mechanical Equipment</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc2_desc">Pig launcher/receiver stations (package), purge tanks, fire-fighting systems, and associated mechanical packages.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center text-xl flex-shrink-0 font-mono">03</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc3_title">Electrical Systems</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc3_desc">Photovoltaic solar system with shelters, distribution panels, power cables, outdoor lighting, grounding, and electrical accessories.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-red-500/10 text-red-500 flex items-center justify-center text-xl flex-shrink-0 font-mono">04</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc4_title">Instrumentation & Control</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc4_desc">Ultrasonic flowmeters, measurement instruments, automated valves & safety relief valves, instrumentation cables, and junction boxes.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center text-xl flex-shrink-0 font-mono">05</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc5_title">Cathodic Protection</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc5_desc">Full cathodic protection system (provisional and permanent) for corrosion prevention across the pipeline route.</div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-500 flex items-center justify-center text-xl flex-shrink-0 font-mono">06</div>
+                    <div>
+                        <div class="font-bold text-slate-800 dark:text-white mb-1" data-key="disc6_title">Telecom & SCADA</div>
+                        <div class="text-sm text-slate-600 dark:text-gray-400" data-key="disc6_desc">HDPE conduit with warning mesh for fiber optic cable routing, SCADA/telecom infrastructure for remote monitoring.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200 dark:border-gray-800 mb-20">
+
+        <!-- ═══════════════════ MAP ═══════════════════ -->
+        <section class="mb-20 reveal">
+            <div class="font-mono text-xs tracking-[0.2em] uppercase text-slate-500 dark:text-gray-500 mb-3" data-key="sec3_label">03 — Project Region</div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4" data-key="sec3_title">Southern Algeria — Saharan Pipeline Corridor</h2>
+            <p class="text-slate-600 dark:text-gray-400 mb-8" data-key="sec3_desc">
+                The pipeline traverses approximately 46 km of arid Saharan terrain in southeastern Algeria, connecting upstream production facilities to a major crude oil transportation hub.
+            </p>
+            
+            <div class="relative rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-lg h-96 w-full">
+                <div id="map" class="w-full h-full"></div>
+                <div class="absolute bottom-4 left-4 z-[400] bg-white/90 dark:bg-darker/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-lg p-3 text-xs md:text-sm shadow-lg">
+                    <strong class="text-primary block mb-1" data-key="map_region">Region: Southeastern Algeria</strong>
+                    <span class="text-slate-600 dark:text-gray-400 block" data-key="map_desc">~46 km rehabilitation corridor • Saharan terrain</span>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-gray-200 dark:border-gray-800 mb-20">
+
+        <!-- ═══════════════════ MY CONTRIBUTION ═══════════════════ -->
+        <section class="mb-20 reveal">
+            <div class="font-mono text-xs tracking-[0.2em] uppercase text-slate-500 dark:text-gray-500 mb-3" data-key="sec4_label">04 — My Contribution</div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-10" data-key="sec4_title">What I Delivered</h2>
+
+            <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 dark:before:via-gray-700 before:to-transparent">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <!-- Icon -->
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        1
+                    </div>
+                    <!-- Card -->
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont1_title">Procurement Strategy & Planning</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont1_desc">Developed the procurement execution plan across 6 technical disciplines. Defined sourcing strategies (national tenders, international competitive bids, and selective consultations) aligned with project schedule and budget constraints.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        2
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont2_title">Tendering & Bid Evaluation</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont2_desc">Managed 20+ tender packages from RFQ issuance through technical/commercial evaluation. Prepared bid tabulation sheets (TBE) and coordinated with engineering for technical alignment before contract award.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        3
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont3_title">Contract Negotiation & Administration</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont3_desc">Negotiated terms with 12+ suppliers across local and international markets. Managed contract establishment, purchase orders, and amendments, ensuring compliance with client regulations and project governance.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        4
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont4_title">Vendor Expediting & Progress Tracking</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont4_desc">Tracked procurement progress across all 20+ line items using a weighted advancement methodology covering tendering (40%), manufacturing (40%), and logistics (20%). Maintained the Procurement Tracking Register (PTR) as the primary reporting tool.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        5
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont5_title">Logistics & Site Delivery Coordination</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont5_desc">Coordinated equipment transport to a remote Saharan site — including customs clearance, overland transport, and on-site reception. Managed the complexities of delivering heavy equipment to a desert location with limited infrastructure.</p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 6 -->
+                <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-darker bg-primary text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 font-bold font-mono text-sm">
+                        6
+                    </div>
+                    <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-card p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-2" data-key="cont6_title">Budget Monitoring & Reporting</h3>
+                        <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed" data-key="cont6_desc">Monitored the procurement budget (~40% of total project value) against contractual commitments. Provided regular status reports to project management and the client on cost, schedule, and risk.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="border-gray-200 dark:border-gray-800 mb-20">
+
+        <!-- ═══════════════════ TOOLS ═══════════════════ -->
+        <section class="reveal mb-10">
+            <div class="font-mono text-xs tracking-[0.2em] uppercase text-slate-500 dark:text-gray-500 mb-3" data-key="sec5_label">05 — Tools & Methods</div>
+            <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4" data-key="sec5_title">Tech Stack</h2>
+            <p class="text-slate-600 dark:text-gray-400 mb-8" data-key="sec5_desc">
+                Software and methods used to manage procurement across this project.
+            </p>
+            <div class="flex flex-wrap gap-3">
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Advanced Excel Models</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>MS Project</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>PTR (Procurement Tracking Register)</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Bid Tabulation (TBE)</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Weighted Progress Methodology</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Vendor Pre-qualification</span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-slate-700 dark:text-gray-300 hover:border-primary transition-colors cursor-default"><span class="w-1.5 h-1.5 rounded-full bg-primary"></span>Technical Specifications Review</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="text-center py-12 border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-darker">
+        <p class="text-sm text-slate-500 dark:text-gray-500 mb-4 px-6" data-key="footer_text">
+            Project data sanitized for confidentiality. No proprietary information disclosed.
+        </p>
+        <a href="index.html" class="inline-flex items-center gap-2 text-primary font-medium hover:text-cyan-600 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+            <span data-key="nav_back">Back to Portfolio</span>
+        </a>
+    </footer>
+
+    <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // --- Dark Mode Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        function updateMapTheme() {
+             // For a sleek look in both modes, the dark map works well, but this function is here if map tile changes are desired later
+        }
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeToggleLightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleDarkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+            updateMapTheme();
+        });
+
+        // --- Translations Object for Project Page ---
+        const translations = {
+            en: {
+                page_title: "Project Showcase | Ilyes Boudissa",
+                nav_back: "Back to Portfolio",
+                proj_label: "Featured Project",
+                proj_title_p1: "46 km Pipeline Rehabilitation",
+                proj_title_p2: "Fiberglass 24\" — Saharan Region",
+                proj_subtitle: "Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain for <strong class=\"text-primary\">SONATRACH</strong> — Africa's largest oil & gas company — replacing carbon steel with advanced fiberglass (GRP) technology under an EPC framework.",
+                tag_1: "SONATRACH",
+                tag_2: "Oil & Gas — Upstream",
+                tag_3: "EPC Contract",
+                tag_4: "46 km Pipeline",
+                tag_5: "24\" Diameter GRP",
+                tag_6: "✓ Delivered",
+                sec1_label: "01 — Key Metrics",
+                sec1_title: "Project at a Glance",
+                kpi1_label: "Total Project Budget Range",
+                kpi2_label: "Procurement Share of Budget",
+                kpi3_label: "Procurement Line Items",
+                kpi4_label: "Suppliers Managed",
+                badge_title: "Project Successfully Delivered",
+                badge_desc: "All procurement packages awarded, manufactured, inspected, and delivered to site. Full commissioning completed.",
+                sec2_label: "02 — Procurement Summary",
+                sec2_title: "Disciplines & Material Categories",
+                disc1_title: "Piping & Pipeline", disc1_desc: "GRP fittings, flanges, manual valves, check valves, insulating joints, and bulk pipe accessories for 46 km trunkline.",
+                disc2_title: "Mechanical Equipment", disc2_desc: "Pig launcher/receiver stations (package), purge tanks, fire-fighting systems, and associated mechanical packages.",
+                disc3_title: "Electrical Systems", disc3_desc: "Photovoltaic solar system with shelters, distribution panels, power cables, outdoor lighting, grounding, and electrical accessories.",
+                disc4_title: "Instrumentation & Control", disc4_desc: "Ultrasonic flowmeters, measurement instruments, automated valves & safety relief valves, instrumentation cables, and junction boxes.",
+                disc5_title: "Cathodic Protection", disc5_desc: "Full cathodic protection system (provisional and permanent) for corrosion prevention across the pipeline route.",
+                disc6_title: "Telecom & SCADA", disc6_desc: "HDPE conduit with warning mesh for fiber optic cable routing, SCADA/telecom infrastructure for remote monitoring.",
+                sec3_label: "03 — Project Region",
+                sec3_title: "Southern Algeria — Saharan Pipeline Corridor",
+                sec3_desc: "The pipeline traverses approximately 46 km of arid Saharan terrain in southeastern Algeria, connecting upstream production facilities to a major crude oil transportation hub.",
+                map_region: "Region: Southeastern Algeria",
+                map_desc: "~46 km rehabilitation corridor • Saharan terrain",
+                sec4_label: "04 — My Contribution",
+                sec4_title: "What I Delivered",
+                cont1_title: "Procurement Strategy & Planning", cont1_desc: "Developed the procurement execution plan across 6 technical disciplines. Defined sourcing strategies (national tenders, international competitive bids, and selective consultations) aligned with project schedule and budget constraints.",
+                cont2_title: "Tendering & Bid Evaluation", cont2_desc: "Managed 20+ tender packages from RFQ issuance through technical/commercial evaluation. Prepared bid tabulation sheets (TBE) and coordinated with engineering for technical alignment before contract award.",
+                cont3_title: "Contract Negotiation & Administration", cont3_desc: "Negotiated terms with 12+ suppliers across local and international markets. Managed contract establishment, purchase orders, and amendments, ensuring compliance with client regulations and project governance.",
+                cont4_title: "Vendor Expediting & Progress Tracking", cont4_desc: "Tracked procurement progress across all 20+ line items using a weighted advancement methodology covering tendering (40%), manufacturing (40%), and logistics (20%). Maintained the Procurement Tracking Register (PTR) as the primary reporting tool.",
+                cont5_title: "Logistics & Site Delivery Coordination", cont5_desc: "Coordinated equipment transport to a remote Saharan site — including customs clearance, overland transport, and on-site reception. Managed the complexities of delivering heavy equipment to a desert location with limited infrastructure.",
+                cont6_title: "Budget Monitoring & Reporting", cont6_desc: "Monitored the procurement budget (~40% of total project value) against contractual commitments. Provided regular status reports to project management and the client on cost, schedule, and risk.",
+                sec5_label: "05 — Tools & Methods",
+                sec5_title: "Tech Stack",
+                sec5_desc: "Software and methods used to manage procurement across this project.",
+                footer_text: "Project data sanitized for confidentiality. No proprietary information disclosed."
+            },
+            de: {
+                page_title: "Projektpräsentation | Ilyes Boudissa",
+                nav_back: "Zurück zum Portfolio",
+                proj_label: "Ausgewähltes Projekt",
+                proj_title_p1: "46 km Pipeline-Sanierung",
+                proj_title_p2: "Glasfaser 24\" — Sahara-Region",
+                proj_subtitle: "Vollständige Beschaffung für die Sanierung einer Rohölpipeline über 46 km in der Sahara für <strong class=\"text-primary\">SONATRACH</strong> — Afrikas größtes Öl- und Gasunternehmen —, wobei Kohlenstoffstahl im Rahmen eines EPC-Vertrags durch fortschrittliche Glasfasertechnologie (GRP) ersetzt wurde.",
+                tag_1: "SONATRACH",
+                tag_2: "Öl & Gas — Upstream",
+                tag_3: "EPC-Vertrag",
+                tag_4: "46 km Pipeline",
+                tag_5: "24\" Durchmesser GRP",
+                tag_6: "✓ Geliefert",
+                sec1_label: "01 — Wichtige Kennzahlen",
+                sec1_title: "Das Projekt auf einen Blick",
+                kpi1_label: "Gesamtbudget des Projekts",
+                kpi2_label: "Beschaffungsanteil am Budget",
+                kpi3_label: "Beschaffungspositionen",
+                kpi4_label: "Verwaltete Lieferanten",
+                badge_title: "Projekt Erfolgreich Abgeschlossen",
+                badge_desc: "Alle Beschaffungspakete wurden vergeben, hergestellt, inspiziert und an den Standort geliefert. Vollständige Inbetriebnahme abgeschlossen.",
+                sec2_label: "02 — Zusammenfassung der Beschaffung",
+                sec2_title: "Disziplinen & Materialkategorien",
+                disc1_title: "Leitung & Pipeline", disc1_desc: "GRP-Fittings, Flansche, Handventile, Rückschlagventile, Isolierstücke und Rohrleitungszubehör für 46 km Fernleitung.",
+                disc2_title: "Mechanische Ausrüstung", disc2_desc: "Molchschleusen (Paket), Spültanks, Feuerlöschsysteme und zugehörige mechanische Pakete.",
+                disc3_title: "Elektrische Systeme", disc3_desc: "Photovoltaikanlage mit Unterständen, Verteilertafeln, Stromkabel, Außenbeleuchtung, Erdung und elektrisches Zubehör.",
+                disc4_title: "Mess- und Regeltechnik", disc4_desc: "Ultraschall-Durchflussmesser, Messinstrumente, automatisierte Ventile & Sicherheitsventile, Instrumentierungskabel und Anschlusskästen.",
+                disc5_title: "Kathodischer Korrosionsschutz", disc5_desc: "Vollständiges kathodisches Schutzsystem (provisorisch und dauerhaft) zur Korrosionsprävention entlang der Pipelineroute.",
+                disc6_title: "Telekommunikation & SCADA", disc6_desc: "HDPE-Rohr mit Warnnetz für Glasfaserkabel, SCADA-/Telekominfrastruktur zur Fernüberwachung.",
+                sec3_label: "03 — Projektregion",
+                sec3_title: "Südalgerien — Sahara-Pipelinekorridor",
+                sec3_desc: "Die Pipeline durchquert etwa 46 km trockenes Sahara-Gebiet im Südosten Algeriens und verbindet Produktionsanlagen mit einem wichtigen Rohöl-Transportknotenpunkt.",
+                map_region: "Region: Südost-Algerien",
+                map_desc: "~46 km Sanierungskorridor • Sahara-Gebiet",
+                sec4_label: "04 — Mein Beitrag",
+                sec4_title: "Meine Leistungen",
+                cont1_title: "Beschaffungsstrategie & Planung", cont1_desc: "Entwicklung des Ausführungsplans für 6 technische Disziplinen. Definition von Beschaffungsstrategien unter Einhaltung von Zeit- und Budgetvorgaben.",
+                cont2_title: "Ausschreibung & Angebotsauswertung", cont2_desc: "Verwaltung von über 20 Ausschreibungspaketen von der RFQ bis zur technisch/kommerziellen Bewertung. Erstellung von Preisspiegeln (TBE).",
+                cont3_title: "Vertragsverhandlung & Administration", cont3_desc: "Verhandlung von Konditionen mit über 12 nationalen und internationalen Lieferanten. Verwaltung von Verträgen und Bestellungen.",
+                cont4_title: "Lieferantenexpediting & Fortschrittsverfolgung", cont4_desc: "Überwachung des Beschaffungsfortschritts mittels gewichteter Methodik (Ausschreibung 40%, Fertigung 40%, Logistik 20%).",
+                cont5_title: "Logistik & Koordination der Baustellenlieferung", cont5_desc: "Koordination des Transports in ein abgelegenes Sahara-Gebiet – einschließlich Zollabfertigung und Überlandtransport.",
+                cont6_title: "Budgetüberwachung & Berichterstattung", cont6_desc: "Überwachung des Beschaffungsbudgets gegenüber vertraglichen Verpflichtungen. Regelmäßige Statusberichte an das Management.",
+                sec5_label: "05 — Tools & Methoden",
+                sec5_title: "Tech Stack",
+                sec5_desc: "Software und Methoden zur Steuerung der Beschaffung in diesem Projekt.",
+                footer_text: "Projektdaten aus Vertraulichkeitsgründen anonymisiert. Keine proprietären Informationen offengelegt."
+            },
+            fr: {
+                page_title: "Présentation du Projet | Ilyes Boudissa",
+                nav_back: "Retour au Portfolio",
+                proj_label: "Projet Phare",
+                proj_title_p1: "Réhabilitation de 46 km de Pipeline",
+                proj_title_p2: "Fibre de verre 24\" — Région Saharienne",
+                proj_subtitle: "Approvisionnement complet pour la réhabilitation d'un pipeline de pétrole brut sur 46 km de terrain saharien pour <strong class=\"text-primary\">SONATRACH</strong> — la plus grande entreprise pétrolière et gazière d'Afrique — remplaçant l'acier au carbone par une technologie avancée en fibre de verre (GRP) sous un contrat EPC.",
+                tag_1: "SONATRACH",
+                tag_2: "Pétrole & Gaz — Amont",
+                tag_3: "Contrat EPC",
+                tag_4: "Pipeline de 46 km",
+                tag_5: "GRP Diamètre 24\"",
+                tag_6: "✓ Livré",
+                sec1_label: "01 — Indicateurs Clés",
+                sec1_title: "Le Projet en Bref",
+                kpi1_label: "Budget Total du Projet",
+                kpi2_label: "Part des Achats dans le Budget",
+                kpi3_label: "Lignes d'Approvisionnement",
+                kpi4_label: "Fournisseurs Gérés",
+                badge_title: "Projet Livré avec Succès",
+                badge_desc: "Tous les lots d'approvisionnement ont été attribués, fabriqués, inspectés et livrés sur site. Mise en service complète.",
+                sec2_label: "02 — Résumé des Achats",
+                sec2_title: "Disciplines & Catégories de Matériaux",
+                disc1_title: "Tuyauterie et Pipeline", disc1_desc: "Raccords GRP, brides, vannes manuelles, clapets anti-retour, joints isolants et accessoires pour 46 km de ligne principale.",
+                disc2_title: "Équipement Mécanique", disc2_desc: "Gares de racleurs (lancement/réception), ballons de purge, systèmes anti-incendie et ensembles mécaniques associés.",
+                disc3_title: "Systèmes Électriques", disc3_desc: "Système solaire photovoltaïque, tableaux de distribution, câbles électriques, éclairage extérieur, mise à la terre.",
+                disc4_title: "Instrumentation et Contrôle", disc4_desc: "Débitmètres à ultrasons, instruments de mesure, vannes automatisées et soupapes de sécurité, câbles d'instrumentation.",
+                disc5_title: "Protection Cathodique", disc5_desc: "Système complet de protection cathodique (provisoire et définitif) pour la prévention de la corrosion sur le tracé.",
+                disc6_title: "Télécoms & SCADA", disc6_desc: "Conduits PEHD avec grillage avertisseur pour fibre optique, infrastructure SCADA/télécom pour surveillance à distance.",
+                sec3_label: "03 — Région du Projet",
+                sec3_title: "Sud de l'Algérie — Corridor Saharien",
+                sec3_desc: "Le pipeline traverse environ 46 km de terrain aride dans le sud-est de l'Algérie, reliant les installations de production amont à un hub de transport de pétrole brut.",
+                map_region: "Région : Sud-Est de l'Algérie",
+                map_desc: "~46 km de corridor de réhabilitation • Terrain saharien",
+                sec4_label: "04 — Ma Contribution",
+                sec4_title: "Mes Réalisations",
+                cont1_title: "Stratégie & Planification des Achats", cont1_desc: "Développement du plan d'exécution des achats sur 6 disciplines techniques. Définition des stratégies de sourcing adaptées aux contraintes de budget et de planning.",
+                cont2_title: "Appels d'Offres & Évaluation", cont2_desc: "Gestion de plus de 20 dossiers d'appels d'offres de la demande de prix à l'évaluation technique/commerciale. Préparation des tableaux comparatifs (TBE).",
+                cont3_title: "Négociation & Administration des Contrats", cont3_desc: "Négociation avec plus de 12 fournisseurs sur les marchés locaux et internationaux. Gestion de l'établissement des contrats et des commandes.",
+                cont4_title: "Relance Fournisseurs & Suivi", cont4_desc: "Suivi de l'avancement via une méthodologie pondérée (Appel d'offres 40%, Fabrication 40%, Logistique 20%). Mise à jour du registre de suivi (PTR).",
+                cont5_title: "Logistique & Coordination de Livraison", cont5_desc: "Coordination du transport du matériel vers un site saharien éloigné — incluant le dédouanement et le transport terrestre.",
+                cont6_title: "Suivi du Budget & Reporting", cont6_desc: "Suivi du budget d'approvisionnement (~40% de la valeur totale du projet) par rapport aux engagements contractuels. Rapports réguliers à la direction.",
+                sec5_label: "05 — Outils & Méthodes",
+                sec5_title: "Outils Techniques",
+                sec5_desc: "Logiciels et méthodologies utilisés pour gérer les achats sur ce projet.",
+                footer_text: "Données du projet assainies pour des raisons de confidentialité. Aucune information exclusive divulguée."
+            }
+        };
+
+        const flags = {
+            en: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-full h-full object-cover"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>`,
+            de: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" class="w-full h-full object-cover"><rect width="5" height="3" y="0" x="0" fill="#000"/><rect width="5" height="2" y="1" x="0" fill="#D00"/><rect width="5" height="1" y="2" x="0" fill="#FFCE00"/></svg>`,
+            fr: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="w-full h-full object-cover"><rect width="1" height="2" x="0" fill="#0055A4"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#EF4135"/></svg>`
+        };
+
+        // --- Language Switcher Logic ---
+        function toggleLangDropdown(event) {
+            if(event) event.stopPropagation();
+            const dropdown = document.getElementById('langDropdownMenu');
+            dropdown.classList.toggle('hidden');
+            dropdown.classList.toggle('visible');
+        }
+
+        function selectLanguage(lang) {
+            setLanguage(lang);
+            // Update dropdown trigger
+            document.getElementById('currentFlag').innerHTML = flags[lang];
+            document.getElementById('currentLangCode').innerText = lang.toUpperCase();
+            
+            // Close dropdown
+            const dropdown = document.getElementById('langDropdownMenu');
+            dropdown.classList.add('hidden');
+            dropdown.classList.remove('visible');
+        }
+
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.closest('#langDropdownBtn')) {
+                const dropdown = document.getElementById('langDropdownMenu');
+                if (dropdown && !dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                    dropdown.classList.remove('visible');
+                }
+            }
+        };
+
+        // Initialize Language
+        selectLanguage('en');
+
+        // --- Scroll Animations ---
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+        }, { threshold: 0.15 });
+        reveals.forEach(el => observer.observe(el));
+
+        // --- Leaflet Map ---
+        const map = L.map('map', {
+          center: [31.0, 5.5],
+          zoom: 6,
+          zoomControl: false,
+          attributionControl: false,
+          scrollWheelZoom: false
+        });
+
+        // Using Carto Dark map base for a sleek look in both modes.
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+          maxZoom: 19,
+        }).addTo(map);
+
+        const corridor = L.polyline([
+          [28.2, 7.5],
+          [31.7, 5.4]
+        ], {
+          color: '#06b6d4',
+          weight: 3,
+          opacity: 0.7,
+          dashArray: '8 6'
+        }).addTo(map);
+
+        L.circleMarker([28.2, 7.5], {
+          radius: 7, fillColor: '#06b6d4', color: '#fff', weight: 1, fillOpacity: 0.9
+        }).addTo(map).bindPopup('<b>Southern Terminal</b><br>Production Area');
+
+        L.circleMarker([31.7, 5.4], {
+          radius: 7, fillColor: '#22c55e', color: '#fff', weight: 1, fillOpacity: 0.9
+        }).addTo(map).bindPopup('<b>Northern Hub</b><br>Transportation Hub');
+
+        map.fitBounds(corridor.getBounds().pad(0.3));
+
+    </script>
+</body>
+</html>
