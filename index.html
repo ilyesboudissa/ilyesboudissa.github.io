@@ -734,7 +734,8 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="res_title">Digital Resources</h2>
                 </div>
                 
-                <div class="max-w-3xl mx-auto">
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Resource 1: Supplier Database -->
                     <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
                         <div class="w-24 h-24 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
                             <!-- Excel Icon -->
@@ -750,6 +751,26 @@
                             <a href="https://docs.google.com/spreadsheets/d/193UVYdpjnNe8zGBAZI5QWqPtgX99N9q0/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span data-key="res_excel_btn">Access Database Template</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resource 2: Procurement Tracking Report -->
+                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <!-- Excel / Dashboard Icon -->
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6"></path></svg>
+                        </div>
+                        <div class="text-center md:text-left flex-grow">
+                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel2_title">Procurement Intelligence Dashboard</h3>
+                                <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel2_desc">An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.</p>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/1BlCRHmL_taobDUggfmCMMkCsOALO-V3z/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span data-key="res_excel2_btn">Access Dashboard Template</span>
                             </a>
                         </div>
                     </div>
@@ -1011,6 +1032,9 @@
                 res_excel_title: "Global Supplier Database",
                 res_excel_desc: "An intelligent, comprehensive Excel database I developed, containing detailed information and categorizations for international suppliers specifically within the Energy Sector.",
                 res_excel_btn: "Access Database Template",
+                res_excel2_title: "Procurement Intelligence Dashboard",
+                res_excel2_desc: "An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.",
+                res_excel2_btn: "Access Dashboard Template",
                 contact_title: "Get In Touch",
                 contact_text: "Currently seeking new opportunities to integrate into the European market. Ready to relocate with short-term notice.",
                 footer_text: "&copy; 2025 Ilyes Boudissa. All rights reserved.",
@@ -1100,6 +1124,9 @@
                 res_excel_title: "Globale Lieferantendatenbank",
                 res_excel_desc: "Eine intelligente, umfassende Excel-Datenbank, die ich entwickelt habe und die detaillierte Informationen und Kategorisierungen für internationale Lieferanten speziell im Energiesektor enthält.",
                 res_excel_btn: "Datenbank-Vorlage aufrufen",
+                res_excel2_title: "Procurement Intelligence Dashboard",
+                res_excel2_desc: "Ein von mir entwickeltes, automatisiertes Tracking-Tool mit Command Center, Earned Value Management (EVM), Cashflow-Prognosen und intelligenten Lieferanten-Benachrichtigungen.",
+                res_excel2_btn: "Dashboard-Vorlage aufrufen",
                 contact_title: "Kontakt aufnehmen",
                 contact_text: "Suche derzeit nach neuen Möglichkeiten zur Integration in den europäischen Markt. Bereit für kurzfristigen Umzug.",
                 footer_text: "&copy; 2025 Ilyes Boudissa. Alle Rechte vorbehalten.",
@@ -1189,6 +1216,9 @@
                 res_excel_title: "Base de Données Fournisseurs",
                 res_excel_desc: "Une base de données Excel intelligente et complète que j'ai développée, contenant des informations détaillées et des catégorisations pour les fournisseurs internationaux, spécifiquement dans le secteur de l'énergie.",
                 res_excel_btn: "Accéder au Modèle de Base de Données",
+                res_excel2_title: "Tableau de Bord d'Intelligence Achats",
+                res_excel2_desc: "Un outil de suivi automatisé que j'ai conçu, comprenant un centre de commande, la gestion de la valeur acquise (EVM), des prévisions de trésorerie et des alertes fournisseurs intelligentes.",
+                res_excel2_btn: "Accéder au Modèle de Tableau de Bord",
                 contact_title: "Contactez-moi",
                 contact_text: "Cherche actuellement de nouvelles opportunités pour s'intégrer au marché européen. Prêt à déménager rapidement.",
                 footer_text: "&copy; 2025 Ilyes Boudissa. Tous droits réservés.",
