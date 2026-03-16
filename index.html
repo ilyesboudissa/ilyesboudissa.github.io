@@ -170,6 +170,78 @@
             50% { opacity: 0; }
         }
 
+        /* --- PREMIUM ENHANCEMENTS --- */
+        
+        /* 1. Animated Background Blobs */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* 2. Glass Card Spotlight Hover Effect */
+        .glass-card {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(6, 182, 212, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        html.dark .glass-card::before {
+            background: radial-gradient(600px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(6, 182, 212, 0.15), transparent 40%);
+        }
+        .glass-card:hover::before {
+            opacity: 1;
+        }
+        .glass-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 3. Button Shine Effect */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.25), transparent);
+            transform: skewX(-20deg);
+            transition: all 0.6s ease;
+        }
+        .btn-shine:hover::after {
+            left: 150%;
+        }
+
+        /* Floating Animations for Tools */
+        @keyframes float-1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes float-2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(15px); } }
+        @keyframes float-3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px) translateX(10px); } }
+        @keyframes float-4 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px) translateX(-10px); } }
+        .floating-icon-1 { animation: float-1 4s ease-in-out infinite; }
+        .floating-icon-2 { animation: float-2 5s ease-in-out infinite; }
+        .floating-icon-3 { animation: float-3 4.5s ease-in-out infinite; }
+        .floating-icon-4 { animation: float-4 5.5s ease-in-out infinite; }
+
         /* Scroll Reveal Animations */
         .reveal {
             opacity: 0;
@@ -202,6 +274,9 @@
     </style>
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-white bg-light text-slate-800 dark:bg-dark dark:text-f8fafc transition-colors duration-300">
+
+    <!-- Premium Scroll Progress Bar -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-gradient-to-r from-cyan-400 to-blue-600 z-[60] w-0 transition-all duration-150 ease-out"></div>
 
     <!-- Header -->
     <header class="fixed w-full top-0 z-50 bg-white/80 dark:bg-dark/80 backdrop-blur-md border-b border-gray-200 dark:border-white/5 transition-all duration-300" id="navbar">
@@ -310,9 +385,10 @@
     <main>
         <!-- Hero Section -->
         <section id="about" class="relative pt-40 pb-24 overflow-hidden bg-slate-50 dark:bg-transparent reveal">
-            <!-- Background Elements -->
-            <div class="absolute top-20 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10"></div>
-            <div class="absolute bottom-10 left-0 w-72 h-72 bg-blue-600/10 rounded-full blur-3xl -z-10"></div>
+            <!-- Background Elements (Animated Blobs) -->
+            <div class="absolute top-20 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 animate-blob"></div>
+            <div class="absolute top-40 left-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl -z-10 animate-blob animation-delay-2000"></div>
+            <div class="absolute bottom-10 left-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl -z-10 animate-blob animation-delay-4000"></div>
 
             <div class="container mx-auto px-6 relative z-10">
                 <div class="flex flex-col items-center justify-center text-center max-w-4xl mx-auto">
@@ -397,33 +473,52 @@
         </section>
 
         <!-- Tools & Technologies -->
-        <section id="tools" class="py-20 bg-slate-50 dark:bg-dark reveal">
-             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
+        <section id="tools" class="py-20 bg-slate-50 dark:bg-dark reveal overflow-hidden">
+             <div class="container mx-auto px-6 relative">
+                <div class="text-center mb-16 relative z-10 pointer-events-none">
                     <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="tools_subtitle">Tech Stack</span>
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="tools_title">Tools & Technologies</h2>
                 </div>
                 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                    <!-- SAP/ERP -->
-                    <div class="glass-card p-6 rounded-2xl tool-card">
-                        <svg class="w-12 h-12 text-slate-400 dark:text-gray-400 mx-auto mb-4 tool-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-                        <h3 class="font-bold text-slate-800 dark:text-white">SAP / ERP</h3>
+                <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 py-10 relative">
+                    <!-- SAP ERP -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-1 group shadow-xl shadow-[#0FAAFF]/10 border border-[#0FAAFF]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-14 h-14 text-[#0FAAFF] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M12.983 9.422c0 1.83-1.631 2.378-4.087 2.378H6.559v-4.757h2.337c2.456 0 4.087.548 4.087 2.379zm-4.087-3.927H4.373L2.247 12.11 0 18.72h2.553l1.155-3.606h2.186v3.606H8.56v-4.708h2.09c2.81 0 5.619-1.21 5.619-4.591 0-3.382-2.81-4.591-5.62-4.591zM18.8 20.088l-1.082-3.864H14.1l-1.081 3.864H10.43l5.05-15.932h3.584l5.05 15.932H18.8zm-2.883-9.52l-1.396 4.966h2.793l-1.397-4.965z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">SAP ERP</h3>
+                        </div>
                     </div>
-                     <!-- Excel -->
-                    <div class="glass-card p-6 rounded-2xl tool-card">
-                        <svg class="w-12 h-12 text-slate-400 dark:text-gray-400 mx-auto mb-4 tool-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        <h3 class="font-bold text-slate-800 dark:text-white">Advanced Excel</h3>
+                     
+                    <!-- Microsoft Office -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-2 group shadow-xl shadow-[#D83B01]/10 border border-[#D83B01]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-12 h-12 text-[#D83B01] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Microsoft<br>Office</h3>
+                        </div>
                     </div>
-                     <!-- AI -->
-                    <div class="glass-card p-6 rounded-2xl tool-card">
-                         <svg class="w-12 h-12 text-slate-400 dark:text-gray-400 mx-auto mb-4 tool-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                        <h3 class="font-bold text-slate-800 dark:text-white">AI Analytics</h3>
+                     
+                    <!-- Google Tools -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-3 group shadow-xl shadow-[#34A853]/10 border border-[#34A853]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-12 h-12 text-[#34A853] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.907 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Google<br>Tools</h3>
+                        </div>
                     </div>
-                     <!-- Compliance -->
-                    <div class="glass-card p-6 rounded-2xl tool-card">
-                        <svg class="w-12 h-12 text-slate-400 dark:text-gray-400 mx-auto mb-4 tool-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                        <h3 class="font-bold text-slate-800 dark:text-white">Compliance</h3>
+                     
+                    <!-- AI -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-4 group shadow-xl shadow-[#10A37F]/10 border border-[#10A37F]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-14 h-14 text-[#10A37F] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2057 5.9847 5.9847 0 0 0 3.9804-2.9001 6.0557 6.0557 0 0 0-.7302-7.0731zM13.155 22.4285a4.4255 4.4255 0 0 1-2.923-1.0772 4.435 4.435 0 0 1-1.6377-2.969h5.1873l3.2926-5.7027v1.8902a4.4538 4.4538 0 0 1-3.9192 4.4262zm-8.835-4.4239a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981-1.6463 2.8524-2.3741 1.3447zm.7981-11.4589a4.4255 4.4255 0 0 1 2.923-1.0772 4.435 4.435 0 0 1 1.6377-2.969H4.5915L1.2989 8.2023V6.312a4.4538 4.4538 0 0 1 3.8192-4.4262zM15.2285 2.6486a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578l-2.5936-1.4981 1.6463-2.8524 2.3741-1.3447zm1.6558 7.6433L14.2907 8.7938l1.6463-2.8524 2.3741-1.3447a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578zm-6.1963-3.6931l-1.6463 2.8524-2.3741-1.3447a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981zM12 14.475l-2.146-1.2387v-2.4774L12 9.5202l2.146 1.2387v2.4774z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">AI</h3>
+                        </div>
                     </div>
                 </div>
              </div>
@@ -748,7 +843,7 @@
                             </div>
                             <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel_desc">An intelligent, comprehensive Excel database I developed, containing detailed information and categorizations for international suppliers specifically within the Energy Sector.</p>
                             
-                            <a href="https://docs.google.com/spreadsheets/d/193UVYdpjnNe8zGBAZI5QWqPtgX99N9q0/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                            <a href="https://docs.google.com/spreadsheets/d/193UVYdpjnNe8zGBAZI5QWqPtgX99N9q0/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span data-key="res_excel_btn">Access Database Template</span>
                             </a>
@@ -768,7 +863,7 @@
                             </div>
                             <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel2_desc">An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.</p>
                             
-                            <a href="https://docs.google.com/spreadsheets/d/1P4CjVk0VJ_XjlX3pk6dhSHp6zBRKfHhd/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                            <a href="https://docs.google.com/spreadsheets/d/1P4CjVk0VJ_XjlX3pk6dhSHp6zBRKfHhd/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span data-key="res_excel2_btn">Access Dashboard Template</span>
                             </a>
@@ -788,7 +883,7 @@
                             </div>
                             <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel3_desc">An automated evaluation tool I designed to streamline tender analysis. Features compliance gating, weighted technical/commercial scoring, and side-by-side vendor comparisons.</p>
                             
-                            <a href="https://docs.google.com/spreadsheets/d/1zlHJb4DEN46fpWDF57UPQxRpfDSdMFoC/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                            <a href="https://docs.google.com/spreadsheets/d/1zlHJb4DEN46fpWDF57UPQxRpfDSdMFoC/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span data-key="res_excel3_btn">Access Matrix Template</span>
                             </a>
@@ -806,11 +901,11 @@
                     Currently seeking new opportunities to integrate into the European market. Ready to relocate with short-term notice.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12">
-                     <a href="mailto:ilyesboudissa@icloud.com" class="flex items-center gap-2 bg-primary hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-cyan-500/25 transition-all w-full sm:w-auto justify-center">
+                     <a href="mailto:ilyesboudissa@icloud.com" class="btn-shine flex items-center gap-2 bg-primary hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-cyan-500/25 transition-all w-full sm:w-auto justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg>
                         ilyesboudissa@icloud.com
                     </a>
-                    <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" class="flex items-center gap-2 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 hover:border-primary text-slate-700 dark:text-white font-bold py-3 px-8 rounded-full transition-all w-full sm:w-auto justify-center">
+                    <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" class="btn-shine flex items-center gap-2 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 hover:border-primary text-slate-700 dark:text-white font-bold py-3 px-8 rounded-full transition-all w-full sm:w-auto justify-center">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         LinkedIn
                     </a>
@@ -1346,6 +1441,7 @@
 
         // Scroll to Top Logic & Active Nav
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+        const scrollProgress = document.getElementById('scroll-progress');
         
         window.onscroll = function() {
             // Scroll to Top
@@ -1353,6 +1449,14 @@
                 scrollToTopBtn.classList.add('show');
             } else {
                 scrollToTopBtn.classList.remove('show');
+            }
+
+            // Scroll Progress Bar
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            if (scrollProgress) {
+                scrollProgress.style.width = scrolled + '%';
             }
 
             // Active Nav Link
@@ -1399,6 +1503,70 @@
         document.querySelectorAll('.reveal').forEach((el) => {
             observer.observe(el);
         });
+
+        // --- Interactive Spotlight Hover Effect for Glass Cards ---
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // --- Tools Hover/Flying Evasion Animation ---
+        const toolsContainer = document.getElementById('tools');
+        const toolWrappers = document.querySelectorAll('.tool-wrapper');
+
+        if (toolsContainer && toolWrappers.length > 0) {
+            toolsContainer.addEventListener('mousemove', (e) => {
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                toolWrappers.forEach(wrapper => {
+                    const rect = wrapper.getBoundingClientRect();
+                    const wrapperX = rect.left + rect.width / 2;
+                    const wrapperY = rect.top + rect.height / 2;
+
+                    const distX = mouseX - wrapperX;
+                    const distY = mouseY - wrapperY;
+                    const distance = Math.sqrt(distX * distX + distY * distY);
+
+                    // Radius within which the icon will react to the cursor
+                    const radius = 250; 
+
+                    if (distance < radius) {
+                        const force = (radius - distance) / radius;
+                        
+                        // Calculate dodging and orbiting effect
+                        const angle = Math.atan2(distY, distX);
+                        
+                        // Push away + Perpendicular offset (creating an orbit/swirl)
+                        const pushX = -(Math.cos(angle) * force * 80) + (Math.sin(angle) * force * 50);
+                        const pushY = -(Math.sin(angle) * force * 80) - (Math.cos(angle) * force * 50);
+
+                        wrapper.style.transform = `translate(${pushX}px, ${pushY}px) scale(1.1) rotate(${force * 15}deg)`;
+                        wrapper.style.transition = 'transform 0.1s ease-out';
+                        wrapper.style.zIndex = '20';
+                    } else {
+                        // Reset back to original spot smoothly
+                        wrapper.style.transform = `translate(0px, 0px) scale(1) rotate(0deg)`;
+                        wrapper.style.transition = 'transform 0.5s ease-in-out';
+                        wrapper.style.zIndex = '1';
+                    }
+                });
+            });
+
+            // If mouse leaves the section entirely, reset all icons
+            toolsContainer.addEventListener('mouseleave', () => {
+                toolWrappers.forEach(wrapper => {
+                    wrapper.style.transform = `translate(0px, 0px) scale(1) rotate(0deg)`;
+                    wrapper.style.transition = 'transform 0.5s ease-in-out';
+                    wrapper.style.zIndex = '1';
+                });
+            });
+        }
 
     </script>
 </body>
