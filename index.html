@@ -6,8 +6,8 @@
     
     <!-- SEO & Meta Tags -->
     <title data-key="page_title">Ilyes Boudissa | Senior Procurement Specialist</title>
-    <meta name="description" content="Ilyes Boudissa is a Senior Procurement Specialist & Project Manager based in Berlin, specializing in Strategic Sourcing, P2P Optimization, and AI-driven Supply Chain solutions.">
-    <meta name="keywords" content="Ilyes Boudissa, Procurement Specialist, Project Manager, Strategic Sourcing, Supply Chain, Berlin, SAP, ERP, AI in Procurement, EPC Projects">
+    <meta name="description" content="Ilyes Boudissa is a Senior Procurement Specialist & Project Manager specializing in Strategic Sourcing, P2P Optimization, and AI-driven Supply Chain solutions.">
+    <meta name="keywords" content="Ilyes Boudissa, Procurement Specialist, Project Manager, Strategic Sourcing, Supply Chain, SAP, ERP, AI in Procurement, EPC Projects">
     <meta name="author" content="Ilyes Boudissa">
     <meta name="robots" content="index, follow">
     
@@ -25,11 +25,6 @@
       "name": "Ilyes Boudissa",
       "jobTitle": "Senior Procurement Specialist",
       "url": "https://www.linkedin.com/in/ilyesboudissa/",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Berlin",
-        "addressCountry": "Germany"
-      },
       "sameAs": [
         "https://www.linkedin.com/in/ilyesboudissa/"
       ],
@@ -264,6 +259,18 @@
             visibility: visible;
         }
 
+        /* Project Carousel Animations */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-scroll {
+            animation: scroll 40s linear infinite;
+        }
+        .animate-scroll:hover {
+            animation-play-state: paused;
+        }
+
         /* Active Nav Link */
         .nav-link.active {
             color: #06b6d4;
@@ -421,7 +428,7 @@
                             <p class="text-xs md:text-sm text-slate-500 dark:text-gray-500 uppercase tracking-wide font-medium" data-key="stat_years">Years Exp.</p>
                         </div>
                         <div>
-                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">30M+</h4>
+                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">+100M</h4>
                             <p class="text-xs md:text-sm text-slate-500 dark:text-gray-500 uppercase tracking-wide font-medium" data-key="stat_spend">Managed ($)</p>
                         </div>
                         <div>
@@ -774,50 +781,184 @@
                     <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="projects_subtitle">Case Studies</span>
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="projects_title">Featured Projects</h2>
                 </div>
+             </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    <!-- Project 1 -->
-                    <div class="glass-card rounded-2xl overflow-hidden group flex flex-col">
-                        <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                            <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                            <!-- Subtle overlay to make it look premium -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                        <div class="p-8 flex flex-col flex-grow">
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
-                            <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
-                            <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                <span data-key="proj1_btn">View Project Details</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
+             <!-- Infinite Scrolling Carousel -->
+             <div class="relative w-full py-4 overflow-hidden">
+                 <!-- Left/Right Fade Overlays -->
+                 <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-white dark:from-dark to-transparent z-10 pointer-events-none"></div>
+                 <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-white dark:from-dark to-transparent z-10 pointer-events-none"></div>
 
-                    <!-- Project 2 -->
-                    <div class="glass-card rounded-2xl overflow-hidden group flex flex-col">
-                        <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                            <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                            <!-- Subtle overlay to make it look premium -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        </div>
-                        <div class="p-8 flex flex-col flex-grow">
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
-                            <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
-                            <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                <span data-key="proj2_btn">View Project Details</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                 <!-- Scrolling Track Wrapper -->
+                 <div class="flex w-max animate-scroll">
+                     
+                     <!-- Set 1 -->
+                     <div class="flex gap-8 px-4">
+                         <!-- Project 1 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
+                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj1_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 2 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
+                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj2_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 3 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
+                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj3_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 4 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
+                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj4_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Set 2 (Duplicate for Seamless Loop) -->
+                     <div class="flex gap-8 px-4">
+                         <!-- Project 1 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
+                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj1_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 2 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
+                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj2_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 3 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
+                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj3_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 4 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
+                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj4_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+                     
+                 </div>
              </div>
         </section>
 
@@ -826,7 +967,7 @@
              <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="res_subtitle">Downloads & Tools</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="res_title">Digital Resources</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="res_title">Digital Procurement Templates I Have Built</h2>
                 </div>
                 
                 <div class="max-w-4xl mx-auto space-y-8">
@@ -863,7 +1004,7 @@
                             </div>
                             <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel2_desc">An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.</p>
                             
-                            <a href="https://docs.google.com/spreadsheets/d/1E1Sl0GNZAqnLw4lXUWv0FpEwDjam2wu9/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                            <a href="https://docs.google.com/spreadsheets/d/1P4CjVk0VJ_XjlX3pk6dhSHp6zBRKfHhd/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                                 <span data-key="res_excel2_btn">Access Dashboard Template</span>
                             </a>
@@ -913,9 +1054,6 @@
                 
                 <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-gray-500">
                     <span data-key="footer_text">&copy; 2025 Ilyes Boudissa. All rights reserved.</span>
-                    <div class="flex items-center gap-4">
-                        <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg> Berlin, Germany</span>
-                    </div>
                 </div>
             </div>
         </section>
@@ -1054,7 +1192,7 @@
                 exp_fanin_short: "Strategic sourcing and P2P optimization utilizing AI analytics.",
                 exp_engcb_pm_role: "Procurement Project Manager",
                 exp_engcb_pm_date: "Oct 2023 – Mar 2024",
-                exp_engcb_pm_short: "Full-cycle procurement leadership for $30M+ EPC projects.",
+                exp_engcb_pm_short: "Full-cycle procurement leadership for $100M+ EPC projects.",
                 exp_engcb_spec_role: "Procurement Specialist",
                 exp_engcb_spec_date: "Oct 2020 – Sep 2023",
                 exp_engcb_spec_short: "Supplier relationship management and quality compliance for technical packages.",
@@ -1071,6 +1209,12 @@
                 proj2_title: "30 km Carbon Steel Pipeline",
                 proj2_desc: "Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.",
                 proj2_btn: "View Project Details",
+                proj3_title: "137 km El Borma Pipeline",
+                proj3_desc: "End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.",
+                proj3_btn: "View Project Details",
+                proj4_title: "Marine Terminal Infrastructure",
+                proj4_desc: "End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.",
+                proj4_btn: "View Project Details",
                 ach_subtitle: "Portfolio",
                 achievements_title: "Key Achievements",
                 ach_ai_title: "AI-Driven Sourcing Optimization",
@@ -1081,9 +1225,9 @@
                 ach_epc_result: "Achieved 100% compliance with ISO/Incoterms.",
                 ach_cost_title: "Strategic Cost Reduction",
                 ach_cost_action: "Negotiated high-value international supply contracts.",
-                ach_cost_result: "Consistently secured $30M+ projects under budget.",
+                ach_cost_result: "Consistently secured $100M+ projects under budget.",
                 res_subtitle: "Downloads & Tools",
-                res_title: "Digital Resources",
+                res_title: "Digital Procurement Templates I Have Built",
                 res_excel_title: "Global Supplier Database",
                 res_excel_desc: "An intelligent, comprehensive Excel database I developed, containing detailed information and categorizations for international suppliers specifically within the Energy Sector.",
                 res_excel_btn: "Access Database Template",
@@ -1149,7 +1293,7 @@
                 exp_fanin_short: "Strategische Beschaffung und P2P-Optimierung mithilfe von KI-Analysen.",
                 exp_engcb_pm_role: "Projektmanager Beschaffung",
                 exp_engcb_pm_date: "Okt 2023 – Mär 2024",
-                exp_engcb_pm_short: "Führung der gesamten Beschaffung für 30 Mio. $+ EPC-Projekte.",
+                exp_engcb_pm_short: "Führung der gesamten Beschaffung für 100 Mio. $+ EPC-Projekte.",
                 exp_engcb_spec_role: "Beschaffungsspezialist",
                 exp_engcb_spec_date: "Okt 2020 – Sep 2023",
                 exp_engcb_spec_short: "Lieferantenmanagement und Qualitätskonformität für technische Pakete.",
@@ -1166,6 +1310,12 @@
                 proj2_title: "30 km Kohlenstoffstahl-Pipeline",
                 proj2_desc: "Strategisches Beschaffungsmanagement für eine 30 km lange 24-Zoll-Pipeline für SONATRACH, einschließlich Zubehör, Elektrik und I&C-Paketen.",
                 proj2_btn: "Projektdetails ansehen",
+                proj3_title: "137 km El Borma Pipeline",
+                proj3_desc: "End-to-End-Beschaffung und Supply-Chain-Abwicklung für den Austausch der 137 km langen El Borma Ölpipeline.",
+                proj3_btn: "Projektdetails ansehen",
+                proj4_title: "Marine Terminal Infrastruktur",
+                proj4_desc: "End-to-End-Management des Engineering- und Beschaffungszyklus für ein fortschrittliches industrielles Abwassersammel- und aufbereitungssystem.",
+                proj4_btn: "Projektdetails ansehen",
                 ach_subtitle: "Portfolio",
                 achievements_title: "Wichtige Erfolge",
                 ach_ai_title: "KI-gesteuerte Sourcing-Optimierung",
@@ -1176,9 +1326,9 @@
                 ach_epc_result: "100% Compliance mit ISO/Incoterms erreicht.",
                 ach_cost_title: "Strategische Kostensenkung",
                 ach_cost_action: "Verhandlung hochwertiger internationaler Lieferverträge.",
-                ach_cost_result: "Kontinuierliche Sicherung von 30-Mio.-$-Projekten unter Budget.",
+                ach_cost_result: "Kontinuierliche Sicherung von 100-Mio.-$-Projekten unter Budget.",
                 res_subtitle: "Downloads & Tools",
-                res_title: "Digitale Ressourcen",
+                res_title: "Digitale Beschaffungsvorlagen, die ich erstellt habe",
                 res_excel_title: "Globale Lieferantendatenbank",
                 res_excel_desc: "Eine intelligente, umfassende Excel-Datenbank, die ich entwickelt habe und die detaillierte Informationen und Kategorisierungen für internationale Lieferanten speziell im Energiesektor enthält.",
                 res_excel_btn: "Datenbank-Vorlage aufrufen",
@@ -1216,7 +1366,7 @@
                 stat_comp: "Conformité",
                 services_subtitle: "Caractéristiques",
                 services_title: "Mes Services",
-                tools_subtitle: "Compétences Techniques",
+                tools_subtitle: "Tech Stack",
                 tools_title: "Outils & Technologies",
                 comp_subtitle: "Expertise",
                 comp_title: "Compétences Clés",
@@ -1244,7 +1394,7 @@
                 exp_fanin_short: "Sourcing stratégique et optimisation P2P utilisant l'analyse IA.",
                 exp_engcb_pm_role: "Chef de Projet Approvisionnement",
                 exp_engcb_pm_date: "Oct 2023 – Mar 2024",
-                exp_engcb_pm_short: "Direction des achats pour des projets EPC majeurs (30M$+).",
+                exp_engcb_pm_short: "Direction des achats pour des projets EPC majeurs (100M$+).",
                 exp_engcb_spec_role: "Spécialiste Approvisionnement",
                 exp_engcb_spec_date: "Oct 2020 – Sep 2023",
                 exp_engcb_spec_short: "Gestion des relations fournisseurs et de la qualité pour les packages techniques.",
@@ -1261,6 +1411,12 @@
                 proj2_title: "Pipeline Acier Carbone de 30 km",
                 proj2_desc: "Gestion stratégique des achats pour un pipeline en acier au carbone de 30 km pour SONATRACH, couvrant les accessoires, l'électricité et les lots I&C.",
                 proj2_btn: "Voir les détails du projet",
+                proj3_title: "Pipeline El Borma 137 km",
+                proj3_desc: "Exécution de bout en bout des achats et de la chaîne d'approvisionnement pour le remplacement de l'oléoduc de 137 km à El Borma.",
+                proj3_btn: "Voir les détails du projet",
+                proj4_title: "Infrastructure du Terminal Marin",
+                proj4_desc: "Gestion de bout en bout du cycle d'ingénierie et d'approvisionnement pour un système avancé de collecte et de traitement des eaux usées industrielles.",
+                proj4_btn: "Voir les détails du projet",
                 ach_subtitle: "Portfolio",
                 achievements_title: "Réalisations Clés",
                 ach_ai_title: "Optimisation Sourcing par IA",
@@ -1271,9 +1427,9 @@
                 ach_epc_result: "100% conformité ISO/Incoterms atteinte.",
                 ach_cost_title: "Réduction Stratégique des Coûts",
                 ach_cost_action: "Négociation de contrats d'approvisionnement internationaux de grande valeur.",
-                ach_cost_result: "Réalisation systématique de projets de plus de 30 M$ sous le budget.",
+                ach_cost_result: "Réalisation systématique de projets de plus de 100 M$ sous le budget.",
                 res_subtitle: "Téléchargements & Outils",
-                res_title: "Ressources Numériques",
+                res_title: "Modèles d'Approvisionnement Numériques que J'ai Créés",
                 res_excel_title: "Base de Données Fournisseurs",
                 res_excel_desc: "Une base de données Excel intelligente et complète que j'ai développée, contenant des informations détaillées et des catégorisations pour les fournisseurs internationaux, spécifiquement dans le secteur de l'énergie.",
                 res_excel_btn: "Accéder au Modèle de Base de Données",
