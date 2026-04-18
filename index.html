@@ -11,6 +11,12 @@
     <meta name="author" content="Ilyes Boudissa">
     <meta name="robots" content="index, follow">
     
+    <!-- Security & Performance Meta -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="dns-prefetch" href="https://i.ibb.co">
+    <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <!-- Open Graph / Social Sharing -->
     <meta property="og:type" content="profile">
     <meta property="og:title" content="Ilyes Boudissa | Senior Procurement Specialist">
@@ -278,6 +284,44 @@
         .nav-link.active svg {
             color: #06b6d4;
         }
+
+        /* --- Custom Flip Card Styles --- */
+        .flip-card {
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d;
+            will-change: transform; /* Hardware acceleration for smooth animation */
+        }
+        /* Trigger flip via JavaScript class instead of hover */
+        .flip-card.is-flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .flip-card-front {
+            transform: rotateY(0deg);
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* FIX: Prevent glass-card hover transform from overriding flip rotations and causing glitches */
+        .flip-card-front.glass-card:hover {
+            transform: rotateY(0deg) !important;
+        }
+        .flip-card-back.glass-card:hover {
+            transform: rotateY(180deg) !important;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-cyan-500 selection:text-white bg-light text-slate-800 dark:bg-dark dark:text-f8fafc transition-colors duration-300">
@@ -304,10 +348,6 @@
                         <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         <span data-key="nav_services">Services</span>
                     </a>
-                    <a href="#resume" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
-                        <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        <span data-key="nav_resume">Resume</span>
-                    </a>
                     <a href="#projects" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
                         <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                         <span data-key="nav_projects">Projects</span>
@@ -316,9 +356,13 @@
                         <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
                         <span data-key="nav_resources">Resources</span>
                     </a>
-                    <a href="#achievements" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
-                        <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                        <span data-key="nav_achievements">Achievements</span>
+                    <a href="#ai-automations" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
+                        <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <span data-key="nav_ai">AI Workflows</span>
+                    </a>
+                    <a href="#resume" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
+                        <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span data-key="nav_resume">Resume</span>
                     </a>
                     <a href="#contact" class="nav-link flex items-center gap-2 text-slate-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors group">
                         <svg class="w-4 h-4 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -337,28 +381,28 @@
 
                     <!-- Language Dropdown -->
                     <div class="relative pl-4 border-l border-gray-300 dark:border-gray-700">
-                        <button id="langDropdownBtn" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none border border-gray-200 dark:border-slate-700" onclick="toggleLangDropdown(event)">
+                        <button id="langDropdownBtn" aria-label="Select Language" aria-haspopup="true" aria-expanded="false" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition-colors focus:outline-none border border-gray-200 dark:border-slate-700" onclick="toggleLangDropdown(event)">
                             <span id="currentFlag" class="w-5 h-3.5 rounded-sm overflow-hidden block"></span>
                             <span id="currentLangCode" class="font-bold text-slate-700 dark:text-gray-200 text-xs">EN</span>
-                            <svg class="w-3 h-3 text-slate-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <svg class="w-3 h-3 text-slate-500 dark:text-gray-400" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
                         
-                        <div id="langDropdownMenu" class="dropdown-animate hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 z-50 overflow-hidden">
-                            <button onclick="selectLanguage('en')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
+                        <div id="langDropdownMenu" class="dropdown-animate hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 z-50 overflow-hidden" role="menu">
+                            <button onclick="selectLanguage('en')" role="menuitem" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
                                 <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" class="w-full h-full object-cover"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" aria-hidden="true" class="w-full h-full object-cover"><clipPath id="s"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#s)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></svg>
                                 </span>
                                 <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">English</span>
                             </button>
-                            <button onclick="selectLanguage('de')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
+                            <button onclick="selectLanguage('de')" role="menuitem" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group border-b border-gray-100 dark:border-gray-700 last:border-0">
                                  <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" class="w-full h-full object-cover"><rect width="5" height="3" y="0" x="0" fill="#000"/><rect width="5" height="2" y="1" x="0" fill="#D00"/><rect width="5" height="1" y="2" x="0" fill="#FFCE00"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3" aria-hidden="true" class="w-full h-full object-cover"><rect width="5" height="3" y="0" x="0" fill="#000"/><rect width="5" height="2" y="1" x="0" fill="#D00"/><rect width="5" height="1" y="2" x="0" fill="#FFCE00"/></svg>
                                 </span>
                                 <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">Deutsch</span>
                             </button>
-                            <button onclick="selectLanguage('fr')" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
+                            <button onclick="selectLanguage('fr')" role="menuitem" class="flex items-center w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors group">
                                  <span class="w-6 h-4 mr-3 rounded-sm overflow-hidden block">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" class="w-full h-full object-cover"><rect width="1" height="2" x="0" fill="#0055A4"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#EF4135"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3 2" aria-hidden="true" class="w-full h-full object-cover"><rect width="1" height="2" x="0" fill="#0055A4"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#EF4135"/></svg>
                                 </span>
                                 <span class="text-sm text-slate-700 dark:text-gray-200 font-medium group-hover:text-primary">Français</span>
                             </button>
@@ -368,8 +412,8 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-slate-800 dark:text-white focus:outline-none">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <button id="mobile-menu-button" aria-label="Toggle Mobile Menu" aria-expanded="false" class="text-slate-800 dark:text-white focus:outline-none">
+                        <svg class="w-7 h-7" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
             </div>
@@ -380,17 +424,17 @@
              <div class="px-6 py-4 space-y-3">
                  <a href="#about" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_about"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg> About</a>
                  <a href="#services" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_services"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> Services</a>
-                 <a href="#resume" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_resume"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Resume</a>
                  <a href="#projects" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_projects"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg> Projects</a>
                  <a href="#resources" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_resources"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg> Resources</a>
-                 <a href="#achievements" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_achievements"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg> Achievements</a>
+                 <a href="#ai-automations" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_ai"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg> AI Workflows</a>
+                 <a href="#resume" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_resume"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Resume</a>
                  <a href="#contact" class="block text-slate-700 dark:text-gray-300 hover:text-primary flex items-center gap-2" data-key="nav_contact"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> Contact</a>
              </div>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
+        <!-- 1. Hero Section -->
         <section id="about" class="relative pt-40 pb-24 overflow-hidden bg-slate-50 dark:bg-transparent reveal">
             <!-- Background Elements (Animated Blobs) -->
             <div class="absolute top-20 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 animate-blob"></div>
@@ -408,31 +452,31 @@
                         <span id="typewriter-text" class="text-primary font-medium"></span><span class="typewriter-cursor">&nbsp;</span>
                     </h2>
                     <p class="text-slate-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed text-lg" data-key="about_bio_short">
-                        Result-oriented leader expert in strategic sourcing, vendor negotiation, and OTIF optimization for EPC and industrial projects.
+                        Procurement leader combining strategic sourcing expertise with AI-driven automation to optimize P2P workflows and drive sustainable cost reductions.
                     </p>
                     
                     <!-- Quick Social Icons -->
                     <div class="flex items-center justify-center gap-4 mb-12">
-                        <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-white hover:bg-primary hover:border-primary transition-all shadow-sm transform hover:-translate-y-1">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-white hover:bg-primary hover:border-primary transition-all shadow-sm transform hover:-translate-y-1">
+                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         </a>
-                        <a href="mailto:ilyesboudissa@icloud.com" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-white hover:bg-primary hover:border-primary transition-all shadow-sm transform hover:-translate-y-1">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <a href="mailto:ilyesboudissa@icloud.com" aria-label="Email Ilyes Boudissa" class="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-white hover:bg-primary hover:border-primary transition-all shadow-sm transform hover:-translate-y-1">
+                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                         </a>
                     </div>
 
                     <!-- Social Stats -->
                     <div class="flex items-center justify-center gap-8 md:gap-16 border-t border-gray-200 dark:border-gray-800 pt-10 w-full max-w-3xl">
                         <div>
-                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">5+</h4>
+                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1"><span class="counter" data-target="5">0</span>+</h4>
                             <p class="text-xs md:text-sm text-slate-500 dark:text-gray-500 uppercase tracking-wide font-medium" data-key="stat_years">Years Exp.</p>
                         </div>
                         <div>
-                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">+100M</h4>
+                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">+<span class="counter" data-target="100">0</span>M</h4>
                             <p class="text-xs md:text-sm text-slate-500 dark:text-gray-500 uppercase tracking-wide font-medium" data-key="stat_spend">Managed ($)</p>
                         </div>
                         <div>
-                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1">95%+ OTIF</h4>
+                            <h4 class="text-4xl font-bold text-slate-900 dark:text-white mb-1"><span class="counter" data-target="95">0</span>%+ OTIF</h4>
                             <p class="text-xs md:text-sm text-slate-500 dark:text-gray-500 uppercase tracking-wide font-medium" data-key="stat_comp">Delivery Rate</p>
                         </div>
                     </div>
@@ -440,7 +484,7 @@
             </div>
         </section>
 
-        <!-- Services / What I Do -->
+        <!-- 2. Services / What I Do -->
         <section id="services" class="py-20 bg-white dark:bg-darker reveal">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
@@ -452,10 +496,10 @@
                     <!-- Service 1 -->
                     <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
                         <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="lifecycle_step1">Market Analysis</h3>
-                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_1">Comprehensive market research and benchmarking to identify qualified international vendors and support data-driven decisions.</p>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="serv_title_1">P2P Optimization</h3>
+                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_1">Managing the full Purchase-to-Pay cycle from requisition to payment, by reducing cycle times, costs, and improving visibility across every procurement stage.</p>
                     </div>
 
                     <!-- Service 2 -->
@@ -463,136 +507,449 @@
                         <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="lifecycle_step2">Vendor Management</h3>
-                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_2">Contract negotiation, KPI monitoring, and relationship building to ensure On-Time In-Full (OTIF) delivery and compliance.</p>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="serv_title_2">Strategic Sourcing & Vendor Management</h3>
+                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_2">Running end-to-end sourcing operations RFI, RFQ, RFP, Supplier qualification, bid evaluation, contract negotiation, KPI monitoring, and performance management across international markets.</p>
                     </div>
 
                     <!-- Service 3 -->
                     <div class="glass-card p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
                         <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
-                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="lifecycle_step3">P2P Optimization</h3>
-                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_3">Streamlining the Purchase-to-Pay lifecycle using AI analytics and digital tools to reduce lead times and costs.</p>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3" data-key="serv_title_3">AI Procurement Implementation</h3>
+                        <p class="text-slate-600 dark:text-gray-400 leading-relaxed" data-key="serv_desc_3">Taking procurement processes that still run on manual work and rebuilding them with AI. I design and implement workflows that save your team hours every week without changing the tools they already use.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Tools & Technologies -->
-        <section id="tools" class="py-20 bg-slate-50 dark:bg-dark reveal overflow-hidden">
-             <div class="container mx-auto px-6 relative">
-                <div class="text-center mb-16 relative z-10 pointer-events-none">
-                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="tools_subtitle">Tech Stack</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="tools_title">Tools & Technologies</h2>
+        <!-- 3. Featured Projects -->
+        <section id="projects" class="py-20 bg-slate-50 dark:bg-dark reveal">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="projects_subtitle">Case Studies</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="projects_title">Featured Projects</h2>
+                </div>
+             </div>
+                
+             <!-- Infinite Scrolling Carousel -->
+             <div class="relative w-full py-4 overflow-hidden">
+                 <!-- Left/Right Fade Overlays -->
+                 <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-slate-50 dark:from-dark to-transparent z-10 pointer-events-none"></div>
+                 <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-slate-50 dark:from-dark to-transparent z-10 pointer-events-none"></div>
+
+                 <!-- Scrolling Track Wrapper -->
+                 <div class="flex w-max animate-scroll">
+                     <!-- Set 1 -->
+                     <div class="flex gap-8 px-4">
+                         <!-- Project 1 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
+                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj1_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 2 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
+                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj2_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 3 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
+                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj3_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 4 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
+                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj4_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+
+                     <!-- Set 2 (Duplicate for Seamless Loop) -->
+                     <div class="flex gap-8 px-4">
+                         <!-- Project 1 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
+                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj1_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 2 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
+                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj2_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 3 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" loading="lazy" decoding="async" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
+                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj3_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+
+                         <!-- Project 4 -->
+                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
+                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
+                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" loading="lazy" decoding="async" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
+                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+                             </div>
+                             <div class="p-8 flex flex-col flex-grow">
+                                 <div class="flex flex-wrap gap-2 mb-4">
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
+                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
+                                 </div>
+                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
+                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
+                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
+                                     <span data-key="proj4_btn">View Project Details</span>
+                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </section>
+
+        <!-- 4. Digital Resources Section -->
+        <section id="resources" class="py-20 bg-white dark:bg-darker reveal">
+             <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="res_subtitle">Downloads & Tools</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="res_title">Digital Procurement Templates I Have Built</h2>
                 </div>
                 
-                <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 py-10 relative">
-                    <!-- SAP ERP -->
-                    <div class="tool-wrapper relative isolate p-4">
-                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-1 group shadow-xl shadow-[#0FAAFF]/10 border border-[#0FAAFF]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
-                            <svg class="w-14 h-14 text-[#0FAAFF] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                               <path d="M12.983 9.422c0 1.83-1.631 2.378-4.087 2.378H6.559v-4.757h2.337c2.456 0 4.087.548 4.087 2.379zm-4.087-3.927H4.373L2.247 12.11 0 18.72h2.553l1.155-3.606h2.186v3.606H8.56v-4.708h2.09c2.81 0 5.619-1.21 5.619-4.591 0-3.382-2.81-4.591-5.62-4.591zM18.8 20.088l-1.082-3.864H14.1l-1.081 3.864H10.43l5.05-15.932h3.584l5.05 15.932H18.8zm-2.883-9.52l-1.396 4.966h2.793l-1.397-4.965z"/>
-                            </svg>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">SAP ERP</h3>
+                <div class="max-w-4xl mx-auto space-y-8">
+                    <!-- Resource 1: Supplier Database -->
+                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <!-- Excel Icon -->
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6"></path></svg>
+                        </div>
+                        <div class="text-center md:text-left flex-grow">
+                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel_title">Global Supplier Database</h3>
+                                <span class="px-2.5 py-0.5 rounded-full bg-green-500/20 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel_desc">An intelligent, comprehensive Excel database I developed, containing detailed information and categorizations for international suppliers specifically within the Energy Sector.</p>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/193UVYdpjnNe8zGBAZI5QWqPtgX99N9q0/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span data-key="res_excel_btn">Access Database Template</span>
+                            </a>
                         </div>
                     </div>
-                     
-                    <!-- Microsoft Office -->
-                    <div class="tool-wrapper relative isolate p-4">
-                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-2 group shadow-xl shadow-[#D83B01]/10 border border-[#D83B01]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
-                            <svg class="w-12 h-12 text-[#D83B01] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                               <path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/>
-                            </svg>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Microsoft<br>Office</h3>
+
+                    <!-- Resource 2: Procurement Tracking Report -->
+                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <!-- Excel / Dashboard Icon -->
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6"></path></svg>
+                        </div>
+                        <div class="text-center md:text-left flex-grow">
+                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel2_title">Procurement Intelligence Dashboard</h3>
+                                <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel2_desc">An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.</p>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/1P4CjVk0VJ_XjlX3pk6dhSHp6zBRKfHhd/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span data-key="res_excel2_btn">Access Dashboard Template</span>
+                            </a>
                         </div>
                     </div>
-                     
-                    <!-- Google Tools -->
-                    <div class="tool-wrapper relative isolate p-4">
-                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-3 group shadow-xl shadow-[#34A853]/10 border border-[#34A853]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
-                            <svg class="w-12 h-12 text-[#34A853] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.907 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
-                            </svg>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Google<br>Tools</h3>
+
+                    <!-- Resource 3: Vendor Bid Evaluation Matrix -->
+                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
+                        <div class="w-24 h-24 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
+                            <!-- Evaluation / Checklist Icon -->
+                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
                         </div>
-                    </div>
-                     
-                    <!-- AI -->
-                    <div class="tool-wrapper relative isolate p-4">
-                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-4 group shadow-xl shadow-[#10A37F]/10 border border-[#10A37F]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
-                            <svg class="w-14 h-14 text-[#10A37F] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
-                               <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2057 5.9847 5.9847 0 0 0 3.9804-2.9001 6.0557 6.0557 0 0 0-.7302-7.0731zM13.155 22.4285a4.4255 4.4255 0 0 1-2.923-1.0772 4.435 4.435 0 0 1-1.6377-2.969h5.1873l3.2926-5.7027v1.8902a4.4538 4.4538 0 0 1-3.9192 4.4262zm-8.835-4.4239a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981-1.6463 2.8524-2.3741 1.3447zm.7981-11.4589a4.4255 4.4255 0 0 1 2.923-1.0772 4.435 4.435 0 0 1 1.6377-2.969H4.5915L1.2989 8.2023V6.312a4.4538 4.4538 0 0 1 3.8192-4.4262zM15.2285 2.6486a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578l-2.5936-1.4981 1.6463-2.8524 2.3741-1.3447zm1.6558 7.6433L14.2907 8.7938l1.6463-2.8524 2.3741-1.3447a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578zm-6.1963-3.6931l-1.6463 2.8524-2.3741-1.3447a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981zM12 14.475l-2.146-1.2387v-2.4774L12 9.5202l2.146 1.2387v2.4774z"/>
-                            </svg>
-                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">AI</h3>
+                        <div class="text-center md:text-left flex-grow">
+                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel3_title">Smart Bid Evaluation Matrix</h3>
+                                <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel3_desc">An automated evaluation tool I designed to streamline tender analysis. Features compliance gating, weighted technical/commercial scoring, and side-by-side vendor comparisons.</p>
+                            
+                            <a href="https://docs.google.com/spreadsheets/d/1zlHJb4DEN46fpWDF57UPQxRpfDSdMFoC/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span data-key="res_excel3_btn">Access Matrix Template</span>
+                            </a>
                         </div>
                     </div>
                 </div>
              </div>
         </section>
 
-        <!-- Core Competencies -->
-        <section class="py-10 bg-white dark:bg-darker reveal">
+        <!-- 5. AI Automations Section -->
+        <section id="ai-automations" class="py-20 bg-slate-50 dark:bg-dark reveal">
             <div class="container mx-auto px-6">
-                <div class="text-center mb-12">
-                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="comp_subtitle">Expertise</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="comp_title">Core Competencies</h2>
+                <div class="text-center mb-16">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="ai_sec_subtitle">Transforming manual procurement processes into intelligent automated workflows</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="ai_sec_title">Procurement Processes I've Automated with AI</h2>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L9 14h5l-2 7"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c1_title">AI RFQ Generator</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c1_tagline">Specs in, RFQ out</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c1_title">AI RFQ Generator</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c1_desc">Automatically drafts a complete, professional RFQ document from technical specifications and commercial requirements in seconds. Covers scope of supply, delivery conditions, incoterms, warranty, and compliance requirements — ready to send to suppliers immediately.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_sourcing">Sourcing</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_rfx">RFx</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_automation">Automation</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_negot">Negotiation</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+
+                    <!-- Card 2 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 6l2 2 4-4"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c2_title">Bid Evaluation Automation</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c2_tagline">Score every offer instantly</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c2_title">Bid Evaluation Automation</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c2_desc">Automatically scores and ranks supplier offers using weighted technical and commercial criteria. Non-compliant bids are flagged and excluded first. Remaining offers are ranked by price, lead time, payment terms, and risk — generating a full award recommendation with audit trail.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_eval">Evaluation</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_sourcing">Sourcing</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_comp">Compliance</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_leadership">Leadership</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+
+                    <!-- Card 3 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 20.5c-4.694 0-8.5-3.806-8.5-8.5 0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15a3 3 0 100-6 3 3 0 000 6z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 12l4.5-4.5"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c3_title">Supplier Performance Monitor</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c3_tagline">Real-time vendor intelligence</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c3_title">Supplier Performance Monitor</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c3_desc">Continuously monitors supplier KPIs including OTIF, quality rejection rate, and lead time adherence. Automatic alerts triggered when performance drops below defined thresholds — giving procurement teams time to act before a project is impacted.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_vendor">Vendor Mgmt</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_kpi">KPI</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_alerts">Alerts</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_risk">Risk Mgmt</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+
+                    <!-- Card 4 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l2 2"></path><circle cx="13" cy="13" r="3" stroke-width="1.5"></circle></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c4_title">Invoice 3-Way Match</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c4_tagline">Match, verify, flag instantly</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c4_title">Invoice 3-Way Match</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c4_desc">Automatically matches incoming invoices against the corresponding Purchase Order and goods receipt note. Discrepancies in quantity, unit price, or delivery terms are flagged instantly with specific mismatch detail — eliminating manual checking and reducing payment errors to near zero.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_p2p">P2P</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_finance">Finance</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_comp">Compliance</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_global">Global Sourcing</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+
+                    <!-- Card 5 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c5_title">Contract Risk Scanner</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c5_tagline">Flag risks before signing</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c5_title">Contract Risk Scanner</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c5_desc">Analyses contract and Purchase Order terms to identify risky clauses, missing protections, and unfavorable conditions. Highlights specific language around liability, payment terms, force majeure, and delivery penalties — and suggests renegotiation points before commitment.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_contracts">Contracts</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_risk">Risk</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_comp">Compliance</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_contracts">Contract Law</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+
+                    <!-- Card 6 -->
+                    <div class="flip-card h-[380px] group cursor-pointer" tabindex="0">
+                        <div class="flip-card-inner">
+                            <!-- Front -->
+                            <div class="flip-card-front glass-card rounded-2xl flex flex-col items-center justify-center p-8 border border-gray-200 dark:border-white/5">
+                                <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-6">
+                                    <svg class="w-8 h-8 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1h3l2.828-4.713A2 2 0 0019.518 10H16v6h-1z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 7v-1a2 2 0 00-4 0v1a2 2 0 01-2 2h8a2 2 0 01-2-2z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9a1 1 0 002 0"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2 text-center" data-key="ai_c6_title">Expediting Automation</h3>
+                                <p class="text-slate-500 dark:text-gray-400 font-medium text-sm text-center" data-key="ai_c6_tagline">No delay goes unnoticed</p>
+                                <p class="text-xs text-slate-400 dark:text-gray-500 italic absolute bottom-8" data-key="ai_click_hint">Click to learn more</p>
+                            </div>
+                            <!-- Back -->
+                            <div class="flip-card-back glass-card rounded-2xl flex flex-col p-8 border border-primary/30 dark:border-primary/30 text-left">
+                                <h3 class="text-lg font-bold text-slate-800 dark:text-white mb-3" data-key="ai_c6_title">Expediting Automation</h3>
+                                <p class="text-slate-600 dark:text-gray-400 text-sm leading-relaxed mb-auto" data-key="ai_c6_desc">Tracks production and shipment milestones against planned delivery dates in real time. When a supplier misses a milestone or a delay is detected, automatic alerts are sent to the supplier and project team — with escalation triggers if no response is received within a defined window.</p>
+                                <div class="flex flex-wrap gap-2 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_logistics">Logistics</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_expediting">Expediting</span>
+                                    <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-gray-300 text-xs font-semibold" data-key="ai_tag_alerts">Alerts</span>
+                                </div>
+                            </div>
                         </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_cost">Cost Analysis</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                        </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_logistics">Logistics</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
-                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                        </div>
-                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_analytics">Spend Analytics</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Resume Section (Experience & Education) -->
-        <section id="resume" class="py-20 bg-slate-50 dark:bg-darker reveal">
+        <!-- 6. Resume Section (Experience & Education) -->
+        <section id="resume" class="py-20 bg-white dark:bg-darker reveal">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="resume_subtitle">My Career</span>
@@ -774,293 +1131,145 @@
             </div>
         </section>
 
-        <!-- Featured Projects -->
-        <section id="projects" class="py-20 bg-white dark:bg-dark reveal">
-             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="projects_subtitle">Case Studies</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="projects_title">Featured Projects</h2>
+        <!-- 7. Core Competencies -->
+        <section id="competencies" class="py-10 bg-slate-50 dark:bg-dark reveal">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="comp_subtitle">Expertise</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="comp_title">Core Competencies</h2>
                 </div>
-             </div>
-                
-             <!-- Infinite Scrolling Carousel -->
-             <div class="relative w-full py-4 overflow-hidden">
-                 <!-- Left/Right Fade Overlays -->
-                 <div class="absolute top-0 left-0 w-12 md:w-32 h-full bg-gradient-to-r from-white dark:from-dark to-transparent z-10 pointer-events-none"></div>
-                 <div class="absolute top-0 right-0 w-12 md:w-32 h-full bg-gradient-to-l from-white dark:from-dark to-transparent z-10 pointer-events-none"></div>
-
-                 <!-- Scrolling Track Wrapper -->
-                 <div class="flex w-max animate-scroll">
-                     
-                     <!-- Set 1 -->
-                     <div class="flex gap-8 px-4">
-                         <!-- Project 1 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
-                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj1_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 2 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
-                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj2_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 3 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
-                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj3_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 4 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
-                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj4_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-                     </div>
-
-                     <!-- Set 2 (Duplicate for Seamless Loop) -->
-                     <div class="flex gap-8 px-4">
-                         <!-- Project 1 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/fVshT2nq/Gemini-Generated-Image-k118a0k118a0k118.png" alt="46 km Pipeline Rehabilitation" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj1_title">46 km Pipeline Rehabilitation</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj1_desc">Full-cycle procurement for a crude oil pipeline rehabilitation across 46 km of Saharan terrain, replacing carbon steel with advanced fiberglass (GRP) technology.</p>
-                                 <a href="project_pipeline.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj1_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 2 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/qYFMHjW7/Gemini-Generated-Image-g6y2dxg6y2dxg6y2.png" alt="30 km Carbon Steel Pipeline" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">SONATRACH</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj2_title">30 km Carbon Steel Pipeline</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj2_desc">Strategic procurement management for a 30 km, 24-inch carbon steel pipeline for SONATRACH, covering accessories, electrical, and I&C packages.</p>
-                                 <a href="project_pipeline2.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj2_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 3 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/TxJNfLJx/Gemini-Generated-Image-fxg8vxfxg8vxfxg8.png" alt="137 km El Borma Pipeline Replacement" class="w-full h-full object-cover object-top transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Oil & Gas</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj3_title">137 km El Borma Pipeline</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj3_desc">End-to-end procurement and supply chain execution for the replacement of the 137 KM El Borma oil pipeline.</p>
-                                 <a href="project_pipeline3.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj3_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-
-                         <!-- Project 4 -->
-                         <div class="glass-card w-[80vw] md:w-[340px] shrink-0 rounded-2xl overflow-hidden group/card flex flex-col">
-                             <div class="h-48 bg-slate-100 dark:bg-slate-800 relative overflow-hidden">
-                                 <img src="https://i.ibb.co/kVfD8MYj/Gemini-Generated-Image-qkhj4mqkhj4mqkhj.png" alt="Marine Terminal Water Treatment" class="w-full h-full object-cover transform group-hover/card:scale-110 transition-transform duration-500">
-                                 <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
-                             </div>
-                             <div class="p-8 flex flex-col flex-grow">
-                                 <div class="flex flex-wrap gap-2 mb-4">
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">EPC Contract</span>
-                                     <span class="text-xs font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-full">Infrastructure</span>
-                                 </div>
-                                 <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3 group-hover/card:text-primary transition-colors" data-key="proj4_title">Marine Terminal Infrastructure</h3>
-                                 <p class="text-slate-600 dark:text-gray-400 text-sm mb-6 flex-grow" data-key="proj4_desc">End-to-end management of the engineering and procurement lifecycle for an advanced industrial wastewater collection and treatment system.</p>
-                                 <a href="project_pipeline4.html" class="inline-flex items-center gap-2 text-primary font-semibold text-sm hover:gap-3 transition-all mt-auto w-fit">
-                                     <span data-key="proj4_btn">View Project Details</span>
-                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                 </a>
-                             </div>
-                         </div>
-                     </div>
-                     
-                 </div>
-             </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_negot">Negotiation</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_leadership">Leadership</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_risk">Risk Mgmt</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_global">Global Sourcing</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_contracts">Contract Law</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_cost">Cost Analysis</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_logistics">Logistics</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-4 glass-card rounded-xl group hover:border-primary transition-colors">
+                        <div class="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <span class="font-medium text-slate-800 dark:text-white" data-key="comp_analytics">Spend Analytics</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Digital Resources Section -->
-        <section id="resources" class="py-20 bg-slate-50 dark:bg-darker reveal">
-             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="res_subtitle">Downloads & Tools</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="res_title">Digital Procurement Templates I Have Built</h2>
+        <!-- 8. Tools & Technologies -->
+        <section id="tools" class="py-20 bg-white dark:bg-darker reveal overflow-hidden">
+             <div class="container mx-auto px-6 relative">
+                <div class="text-center mb-16 relative z-10 pointer-events-none">
+                    <span class="text-primary font-semibold tracking-wider uppercase text-sm" data-key="tools_subtitle">Tech Stack</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mt-2" data-key="tools_title">Tools & Technologies</h2>
                 </div>
                 
-                <div class="max-w-4xl mx-auto space-y-8">
-                    <!-- Resource 1: Supplier Database -->
-                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-24 h-24 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <!-- Excel Icon -->
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6"></path></svg>
-                        </div>
-                        <div class="text-center md:text-left flex-grow">
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel_title">Global Supplier Database</h3>
-                                <span class="px-2.5 py-0.5 rounded-full bg-green-500/20 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
-                            </div>
-                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel_desc">An intelligent, comprehensive Excel database I developed, containing detailed information and categorizations for international suppliers specifically within the Energy Sector.</p>
-                            
-                            <a href="https://docs.google.com/spreadsheets/d/193UVYdpjnNe8zGBAZI5QWqPtgX99N9q0/edit?usp=sharing&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                <span data-key="res_excel_btn">Access Database Template</span>
-                            </a>
+                <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16 py-10 relative">
+                    <!-- SAP ERP -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-1 group shadow-xl shadow-[#0FAAFF]/10 border border-[#0FAAFF]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-14 h-14 text-[#0FAAFF] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M12.983 9.422c0 1.83-1.631 2.378-4.087 2.378H6.559v-4.757h2.337c2.456 0 4.087.548 4.087 2.379zm-4.087-3.927H4.373L2.247 12.11 0 18.72h2.553l1.155-3.606h2.186v3.606H8.56v-4.708h2.09c2.81 0 5.619-1.21 5.619-4.591 0-3.382-2.81-4.591-5.62-4.591zM18.8 20.088l-1.082-3.864H14.1l-1.081 3.864H10.43l5.05-15.932h3.584l5.05 15.932H18.8zm-2.883-9.52l-1.396 4.966h2.793l-1.397-4.965z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">SAP ERP</h3>
                         </div>
                     </div>
-
-                    <!-- Resource 2: Procurement Tracking Report -->
-                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-24 h-24 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <!-- Excel / Dashboard Icon -->
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6"></path></svg>
-                        </div>
-                        <div class="text-center md:text-left flex-grow">
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel2_title">Procurement Intelligence Dashboard</h3>
-                                <span class="px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
-                            </div>
-                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel2_desc">An automated tracking tool I engineered featuring a command center, Earned Value Management (EVM), cash flow forecasting, and smart vendor alerts.</p>
-                            
-                            <a href="https://docs.google.com/spreadsheets/d/1P4CjVk0VJ_XjlX3pk6dhSHp6zBRKfHhd/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                <span data-key="res_excel2_btn">Access Dashboard Template</span>
-                            </a>
+                     
+                    <!-- Microsoft Office -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-2 group shadow-xl shadow-[#D83B01]/10 border border-[#D83B01]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-12 h-12 text-[#D83B01] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M11.4 24H0V12.6h11.4V24zM24 24H12.6V12.6H24V24zM11.4 11.4H0V0h11.4v11.4zm12.6 0H12.6V0H24v11.4z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Microsoft<br>Office</h3>
                         </div>
                     </div>
-
-                    <!-- Resource 3: Vendor Bid Evaluation Matrix -->
-                    <div class="glass-card p-8 rounded-2xl group flex flex-col md:flex-row items-center gap-8">
-                        <div class="w-24 h-24 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-500 shrink-0 group-hover:scale-110 transition-transform duration-300">
-                            <!-- Evaluation / Checklist Icon -->
-                            <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                     
+                    <!-- Google Tools -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-3 group shadow-xl shadow-[#34A853]/10 border border-[#34A853]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-12 h-12 text-[#34A853] mb-4 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.907 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10 text-center leading-tight">Google<br>Tools</h3>
                         </div>
-                        <div class="text-center md:text-left flex-grow">
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2">
-                                <h3 class="text-2xl font-bold text-slate-800 dark:text-white" data-key="res_excel3_title">Smart Bid Evaluation Matrix</h3>
-                                <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-600 dark:text-purple-400 text-xs font-bold uppercase tracking-wider">.XLSX</span>
-                            </div>
-                            <p class="text-slate-600 dark:text-gray-400 mb-6" data-key="res_excel3_desc">An automated evaluation tool I designed to streamline tender analysis. Features compliance gating, weighted technical/commercial scoring, and side-by-side vendor comparisons.</p>
-                            
-                            <a href="https://docs.google.com/spreadsheets/d/1zlHJb4DEN46fpWDF57UPQxRpfDSdMFoC/edit?usp=drive_link&ouid=113682910236456067051&rtpof=true&sd=true" target="_blank" class="btn-shine inline-flex items-center gap-2 bg-slate-900 dark:bg-primary hover:bg-slate-800 dark:hover:bg-cyan-400 text-white font-bold py-2.5 px-6 rounded-full transition-all">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                                <span data-key="res_excel3_btn">Access Matrix Template</span>
-                            </a>
+                    </div>
+                     
+                    <!-- AI -->
+                    <div class="tool-wrapper relative isolate p-4">
+                        <div class="glass-card w-40 h-40 flex flex-col items-center justify-center rounded-[2.5rem] floating-icon-4 group shadow-xl shadow-[#10A37F]/10 border border-[#10A37F]/20 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl pointer-events-none">
+                            <svg class="w-14 h-14 text-[#10A37F] mb-3 relative z-10 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+                               <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2057 5.9847 5.9847 0 0 0 3.9804-2.9001 6.0557 6.0557 0 0 0-.7302-7.0731zM13.155 22.4285a4.4255 4.4255 0 0 1-2.923-1.0772 4.435 4.435 0 0 1-1.6377-2.969h5.1873l3.2926-5.7027v1.8902a4.4538 4.4538 0 0 1-3.9192 4.4262zm-8.835-4.4239a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981-1.6463 2.8524-2.3741 1.3447zm.7981-11.4589a4.4255 4.4255 0 0 1 2.923-1.0772 4.435 4.435 0 0 1 1.6377-2.969H4.5915L1.2989 8.2023V6.312a4.4538 4.4538 0 0 1 3.8192-4.4262zM15.2285 2.6486a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578l-2.5936-1.4981 1.6463-2.8524 2.3741-1.3447zm1.6558 7.6433L14.2907 8.7938l1.6463-2.8524 2.3741-1.3447a4.4398 4.4398 0 0 1 .9512 3.2374 4.4255 4.4255 0 0 1-2.378 2.4578zm-6.1963-3.6931l-1.6463 2.8524-2.3741-1.3447a4.4398 4.4398 0 0 1-.9512-3.2374 4.4255 4.4255 0 0 1 2.378-2.4578l2.5936 1.4981zM12 14.475l-2.146-1.2387v-2.4774L12 9.5202l2.146 1.2387v2.4774z"/>
+                            </svg>
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm relative z-10">AI</h3>
                         </div>
                     </div>
                 </div>
              </div>
         </section>
 
-        <!-- Contact / Footer -->
-        <section id="contact" class="py-20 bg-slate-50 dark:bg-darker reveal">
+        <!-- 9. Contact / Footer -->
+        <section id="contact" class="py-20 bg-slate-50 dark:bg-dark reveal">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6" data-key="contact_title">Get In Touch</h2>
                 <p class="text-slate-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto" data-key="contact_text">
                     Open to fully remote roles worldwide. Based in Algeria — available immediately.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center items-center gap-6 mb-12">
-                     <a href="mailto:ilyesboudissa@icloud.com" class="btn-shine flex items-center gap-2 bg-primary hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-cyan-500/25 transition-all w-full sm:w-auto justify-center">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg>
+                     <a href="mailto:ilyesboudissa@icloud.com" aria-label="Email Ilyes Boudissa" class="btn-shine flex items-center gap-2 bg-primary hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:shadow-cyan-500/25 transition-all w-full sm:w-auto justify-center">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><rect width="20" height="16" x="2" y="4" rx="2"/></svg>
                         ilyesboudissa@icloud.com
                     </a>
-                    <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" class="btn-shine flex items-center gap-2 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 hover:border-primary text-slate-700 dark:text-white font-bold py-3 px-8 rounded-full transition-all w-full sm:w-auto justify-center">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <a href="https://linkedin.com/in/ilyesboudissa/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="btn-shine flex items-center gap-2 bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-gray-700 hover:border-primary text-slate-700 dark:text-white font-bold py-3 px-8 rounded-full transition-all w-full sm:w-auto justify-center">
+                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                         LinkedIn
                     </a>
                 </div>
                 
                 <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500 dark:text-gray-500">
-                    <span data-key="footer_text">&copy; 2025 Ilyes Boudissa. All rights reserved.</span>
+                    <span data-key="footer_text">© 2025 Ilyes Boudissa. All rights reserved.</span>
                 </div>
             </div>
         </section>
 
         <!-- Scroll to Top Button -->
-        <button id="scrollToTopBtn" class="scroll-top fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-cyan-600 transition-all z-50">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+        <button id="scrollToTopBtn" aria-label="Scroll to Top" class="scroll-top fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-cyan-600 transition-all z-50">
+            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
         </button>
 
     </main>
@@ -1154,11 +1363,12 @@
                 nav_projects: "Projects",
                 nav_achievements: "Achievements",
                 nav_resources: "Resources",
+                nav_ai: "AI Workflows",
                 nav_contact: "Contact",
                 hero_welcome: "Welcome to my portfolio",
                 hero_role: "Senior Procurement Specialist & Project Manager",
                 hero_location: "Berlin, Germany",
-                about_bio_short: "Result-oriented leader expert in strategic sourcing, vendor negotiation, and OTIF optimization for EPC and industrial projects.",
+                about_bio_short: "Procurement leader combining strategic sourcing expertise with AI-driven automation to optimize P2P workflows and drive sustainable cost reductions.",
                 stat_years: "Years Exp.",
                 stat_spend: "Managed ($)",
                 stat_comp: "Delivery Rate",
@@ -1176,12 +1386,12 @@
                 comp_cost: "Cost Analysis",
                 comp_logistics: "Logistics",
                 comp_analytics: "Spend Analytics",
-                lifecycle_step1: "Market Analysis",
-                lifecycle_step2: "Vendor Management",
-                lifecycle_step3: "P2P Optimization",
-                serv_desc_1: "Comprehensive market research and benchmarking to identify qualified international vendors and support data-driven decisions.",
-                serv_desc_2: "Contract negotiation, KPI monitoring, and relationship building to ensure On-Time In-Full (OTIF) delivery and compliance.",
-                serv_desc_3: "Streamlining the Purchase-to-Pay lifecycle using AI analytics and digital tools to reduce lead times and costs.",
+                serv_title_1: "P2P Optimization",
+                serv_title_2: "Strategic Sourcing & Vendor Management",
+                serv_title_3: "AI Procurement Implementation",
+                serv_desc_1: "Managing the full Purchase-to-Pay cycle from requisition to payment, by reducing cycle times, costs, and improving visibility across every procurement stage.",
+                serv_desc_2: "Running end-to-end sourcing operations RFI, RFQ, RFP, Supplier qualification, bid evaluation, contract negotiation, KPI monitoring, and performance management across international markets.",
+                serv_desc_3: "Taking procurement processes that still run on manual work and rebuilding them with AI. I design and implement workflows that save your team hours every week without changing the tools they already use.",
                 resume_subtitle: "My Career",
                 resume_title: "Resume",
                 tab_exp: "Professional Experience",
@@ -1239,8 +1449,45 @@
                 res_excel3_btn: "Access Matrix Template",
                 contact_title: "Get In Touch",
                 contact_text: "Open to fully remote roles worldwide. Based in Algeria — available immediately.",
-                footer_text: "&copy; 2025 Ilyes Boudissa. All rights reserved.",
+                footer_text: "© 2025 Ilyes Boudissa. All rights reserved.",
                 
+                // AI Automations Section
+                ai_sec_subtitle: "Transforming manual procurement processes into intelligent automated workflows",
+                ai_sec_title: "Procurement Processes I've Automated with AI",
+                ai_click_hint: "Click to learn more",
+                ai_c1_title: "AI RFQ Generator",
+                ai_c1_tagline: "Specs in, RFQ out",
+                ai_c1_desc: "Automatically drafts a complete, professional RFQ document from technical specifications and commercial requirements in seconds. Covers scope of supply, delivery conditions, incoterms, warranty, and compliance requirements — ready to send to suppliers immediately.",
+                ai_c2_title: "Bid Evaluation Automation",
+                ai_c2_tagline: "Score every offer instantly",
+                ai_c2_desc: "Automatically scores and ranks supplier offers using weighted technical and commercial criteria. Non-compliant bids are flagged and excluded first. Remaining offers are ranked by price, lead time, payment terms, and risk — generating a full award recommendation with audit trail.",
+                ai_c3_title: "Supplier Performance Monitor",
+                ai_c3_tagline: "Real-time vendor intelligence",
+                ai_c3_desc: "Continuously monitors supplier KPIs including OTIF, quality rejection rate, and lead time adherence. Automatic alerts triggered when performance drops below defined thresholds — giving procurement teams time to act before a project is impacted.",
+                ai_c4_title: "Invoice 3-Way Match",
+                ai_c4_tagline: "Match, verify, flag instantly",
+                ai_c4_desc: "Automatically matches incoming invoices against the corresponding Purchase Order and goods receipt note. Discrepancies in quantity, unit price, or delivery terms are flagged instantly with specific mismatch detail — eliminating manual checking and reducing payment errors to near zero.",
+                ai_c5_title: "Contract Risk Scanner",
+                ai_c5_tagline: "Flag risks before signing",
+                ai_c5_desc: "Analyses contract and Purchase Order terms to identify risky clauses, missing protections, and unfavorable conditions. Highlights specific language around liability, payment terms, force majeure, and delivery penalties — and suggests renegotiation points before commitment.",
+                ai_c6_title: "Expediting Automation",
+                ai_c6_tagline: "No delay goes unnoticed",
+                ai_c6_desc: "Tracks production and shipment milestones against planned delivery dates in real time. When a supplier misses a milestone or a delay is detected, automatic alerts are sent to the supplier and project team — with escalation triggers if no response is received within a defined window.",
+                ai_tag_sourcing: "Sourcing",
+                ai_tag_rfx: "RFx",
+                ai_tag_automation: "Automation",
+                ai_tag_eval: "Evaluation",
+                ai_tag_comp: "Compliance",
+                ai_tag_vendor: "Vendor Mgmt",
+                ai_tag_kpi: "KPI",
+                ai_tag_alerts: "Alerts",
+                ai_tag_p2p: "P2P",
+                ai_tag_finance: "Finance",
+                ai_tag_contracts: "Contracts",
+                ai_tag_risk: "Risk",
+                ai_tag_logistics: "Logistics",
+                ai_tag_expediting: "Expediting",
+
                 // Modals
                 modal_fanin_gen: "Responsible for executing end-to-end strategic sourcing strategies within the energy sector. Focused on leveraging data analytics and AI tools to evaluate vendor proposals, optimize the procure-to-pay (P2P) lifecycle, and ensure consistent On-Time In-Full (OTIF) project delivery across various technical packages.",
                 modal_engcb_pm_gen: "Directed comprehensive procurement operations for large-scale EPC projects. Core responsibilities included cross-functional team leadership, standardizing compliance protocols (such as ISO and Incoterms), and negotiating complex international contracts to maintain strict project budgets and timelines.",
@@ -1255,15 +1502,16 @@
                 nav_projects: "Projekte",
                 nav_achievements: "Erfolge",
                 nav_resources: "Ressourcen",
+                nav_ai: "KI-Workflows",
                 nav_contact: "Kontakt",
                 hero_welcome: "Willkommen in meinem Portfolio",
                 hero_role: "Senior Beschaffungsspezialist & Projektmanager",
                 hero_location: "Berlin, Deutschland",
-                about_bio_short: "Ergebnisorientierter Leiter, Experte für strategische Beschaffung, Lieferantenverhandlungen und OTIF-Optimierung für EPC- und Industrieprojekte.",
-                stat_years: "Jahre Erf.",
+                about_bio_short: "Beschaffungsleiter, der strategische Sourcing-Expertise mit KI-gesteuerter Automatisierung kombiniert, um P2P-Workflows zu optimieren und nachhaltige Kostensenkungen voranzutreiben.",
+                stat_years: "Jahre Erfahrung",
                 stat_spend: "Verwaltet ($)",
                 stat_comp: "Lieferquote",
-                services_subtitle: "Funktionen",
+                services_subtitle: "Schwerpunkte",
                 services_title: "Meine Leistungen",
                 tools_subtitle: "Tech Stack",
                 tools_title: "Tools & Technologien",
@@ -1277,16 +1525,16 @@
                 comp_cost: "Kostenanalyse",
                 comp_logistics: "Logistik",
                 comp_analytics: "Ausgabenanalyse",
-                lifecycle_step1: "Marktanalyse",
-                lifecycle_step2: "Lieferantenmanagement",
-                lifecycle_step3: "P2P-Optimierung",
-                serv_desc_1: "Umfassende Marktforschung und Benchmarking zur Identifizierung qualifizierter internationaler Anbieter.",
-                serv_desc_2: "Vertragsverhandlung, KPI-Überwachung und Beziehungsaufbau zur Sicherstellung der OTIF-Lieferung.",
-                serv_desc_3: "Optimierung des Purchase-to-Pay-Lebenszyklus mithilfe von KI-Analysen und digitalen Tools.",
+                serv_title_1: "P2P-Optimierung",
+                serv_title_2: "Strategisches Sourcing & Lieferantenmanagement",
+                serv_title_3: "KI-Implementierung im Einkauf",
+                serv_desc_1: "Verwaltung des gesamten Purchase-to-Pay-Zyklus von der Anforderung bis zur Zahlung durch Verkürzung der Durchlaufzeiten, Senkung der Kosten und Verbesserung der Transparenz in jeder Beschaffungsphase.",
+                serv_desc_2: "Durchführung von End-to-End-Sourcing-Aktivitäten (RFI, RFQ, RFP), Lieferantenqualifizierung, Angebotsauswertung, Vertragsverhandlung, KPI-Überwachung und Leistungsmanagement in internationalen Märkten.",
+                serv_desc_3: "Umwandlung manueller Beschaffungsprozesse durch KI-gestützte Neugestaltung. Ich entwerfe und implementiere Workflows, die Ihrem Team jede Woche Stunden sparen, ohne die bereits genutzten Tools zu verändern.",
                 resume_subtitle: "Karriere",
                 resume_title: "Lebenslauf",
                 tab_exp: "Berufserfahrung",
-                tab_edu: "Ausbildung",
+                tab_edu: "Studium",
                 btn_read_more: "Mehr lesen",
                 exp_fanin_role: "Spezialist für Beschaffung und Sourcing",
                 exp_fanin_date: "Apr 2024 – Heute",
@@ -1328,7 +1576,7 @@
                 ach_cost_action: "Verhandlung hochwertiger internationaler Lieferverträge.",
                 ach_cost_result: "Kontinuierliche Sicherung von 100-Mio.-$-Projekten unter Budget.",
                 res_subtitle: "Downloads & Tools",
-                res_title: "Digitale Beschaffungsvorlagen, die ich erstellt habe",
+                res_title: "Von mir entwickelte digitale Procurement-Vorlagen",
                 res_excel_title: "Globale Lieferantendatenbank",
                 res_excel_desc: "Eine intelligente, umfassende Excel-Datenbank, die ich entwickelt habe und die detaillierte Informationen und Kategorisierungen für internationale Lieferanten speziell im Energiesektor enthält.",
                 res_excel_btn: "Datenbank-Vorlage aufrufen",
@@ -1339,9 +1587,46 @@
                 res_excel3_desc: "Ein automatisiertes Bewertungstool, das ich zur Optimierung der Angebotsanalyse entwickelt habe. Bietet Compliance-Prüfungen, gewichtete technische/kaufmännische Bewertungen und direkte Lieferantenvergleiche.",
                 res_excel3_btn: "Matrix-Vorlage aufrufen",
                 contact_title: "Kontakt aufnehmen",
-                contact_text: "Offen für vollständig ortsunabhängige Tätigkeiten weltweit. Ansässig in Algerien — ab sofort verfügbar.",
-                footer_text: "&copy; 2025 Ilyes Boudissa. Alle Rechte vorbehalten.",
+                contact_text: "Offen für weltweite Remote-Positionen. Wohnhaft in Algerien – ab sofort verfügbar.",
+                footer_text: "© 2025 Ilyes Boudissa. Alle Rechte vorbehalten.",
                 
+                // AI Automations Section
+                ai_sec_subtitle: "Umwandlung manueller Beschaffungsprozesse in intelligente automatisierte Workflows",
+                ai_sec_title: "Beschaffungsprozesse, die ich mit KI automatisiert habe",
+                ai_click_hint: "Klicken, um mehr zu erfahren",
+                ai_c1_title: "KI-Angebotsgenerator (RFQ)",
+                ai_c1_tagline: "Spezifikationen rein, RFQ raus",
+                ai_c1_desc: "Erstellt in Sekundenschnelle automatisch ein vollständiges, professionelles RFQ-Dokument aus technischen Spezifikationen und kommerziellen Anforderungen. Deckt Lieferumfang, Lieferbedingungen, Incoterms, Garantie und Compliance ab – sofort versandfertig.",
+                ai_c2_title: "Automatisierte Angebotsauswertung",
+                ai_c2_tagline: "Jedes Angebot sofort bewerten",
+                ai_c2_desc: "Bewertet Lieferantenangebote automatisch anhand gewichteter technischer und kommerzieller Kriterien. Nicht konforme Angebote werden markiert und ausgeschlossen. Verbleibende Angebote werden nach Preis, Lieferzeit, Zahlungsbedingungen und Risiko eingestuft.",
+                ai_c3_title: "Lieferantenleistungs-Monitor",
+                ai_c3_tagline: "Echtzeit-Lieferantenintelligenz",
+                ai_c3_desc: "Überwacht kontinuierlich Lieferanten-KPIs wie OTIF, Qualitätsablehnungsrate und Lieferzeiteinhaltung. Automatische Warnungen werden ausgelöst, wenn die Leistung unter definierte Schwellenwerte fällt – so haben Beschaffungsteams Zeit zum Handeln.",
+                ai_c4_title: "Automatisierter 3-Wege-Abgleich",
+                ai_c4_tagline: "Sofort abgleichen, prüfen, markieren",
+                ai_c4_desc: "Gleicht eingehende Rechnungen automatisch mit der entsprechenden Bestellung und dem Wareneingangsbeleg ab. Abweichungen bei Menge, Stückpreis oder Lieferbedingungen werden sofort markiert – eliminiert manuelle Prüfungen.",
+                ai_c5_title: "Vertragsrisiko-Scanner",
+                ai_c5_tagline: "Risiken vor Vertragsabschluss erkennen",
+                ai_c5_desc: "Analysiert Vertrags- und Bestellbedingungen, um riskante Klauseln, fehlende Schutzmaßnahmen und ungünstige Bedingungen zu identifizieren. Hebt spezifische Formulierungen zu Haftung, Zahlungsbedingungen und Lieferstrafen hervor.",
+                ai_c6_title: "Expediting-Automatisierung",
+                ai_c6_tagline: "Keine Verzögerung bleibt unbemerkt",
+                ai_c6_desc: "Verfolgt Produktions- und Versandmeilensteine in Echtzeit anhand geplanter Lieferdaten. Wenn ein Lieferant einen Meilenstein verpasst, werden automatische Warnungen an den Lieferanten und das Projektteam gesendet.",
+                ai_tag_sourcing: "Sourcing",
+                ai_tag_rfx: "RFx",
+                ai_tag_automation: "Automation",
+                ai_tag_eval: "Auswertung",
+                ai_tag_comp: "Compliance",
+                ai_tag_vendor: "Lieferanten-Mgmt",
+                ai_tag_kpi: "KPI",
+                ai_tag_alerts: "Warnungen",
+                ai_tag_p2p: "P2P",
+                ai_tag_finance: "Finanzen",
+                ai_tag_contracts: "Verträge",
+                ai_tag_risk: "Risiko",
+                ai_tag_logistics: "Logistik",
+                ai_tag_expediting: "Expediting",
+
                 // Modals
                 modal_fanin_gen: "Verantwortlich für die Umsetzung von End-to-End-Sourcing-Strategien im Energiesektor. Fokus auf die Nutzung von Datenanalysen und KI-Tools zur Bewertung von Lieferantenangeboten, Optimierung des Procure-to-Pay (P2P)-Lebenszyklus und Sicherstellung einer konsistenten OTIF-Projektabwicklung.",
                 modal_engcb_pm_gen: "Leitung umfassender Beschaffungsvorgänge für große EPC-Projekte. Zu den Hauptaufgaben gehörten die Führung funktionsübergreifender Teams, die Standardisierung von Compliance-Protokollen (ISO/Incoterms) sowie die Aushandlung komplexer internationaler Verträge zur Einhaltung von Projektbudgets.",
@@ -1356,15 +1641,16 @@
                 nav_projects: "Projets",
                 nav_achievements: "Réalisations",
                 nav_resources: "Ressources",
+                nav_ai: "Flux IA",
                 nav_contact: "Contact",
                 hero_welcome: "Bienvenue sur mon portfolio",
                 hero_role: "Spécialiste Senior Approvisionnement & Chef de Projet",
                 hero_location: "Berlin, Allemagne",
-                about_bio_short: "Leader axé sur les résultats, expert en sourcing stratégique, négociation fournisseurs et optimisation OTIF pour projets EPC.",
-                stat_years: "Années Exp.",
+                about_bio_short: "Leader des achats combinant l'expertise en sourcing stratégique avec l'automatisation basée sur l'IA pour optimiser les flux P2P et générer des réductions de coûts durables.",
+                stat_years: "Années d'Exp.",
                 stat_spend: "Géré ($)",
-                stat_comp: "Taux de Livraison",
-                services_subtitle: "Caractéristiques",
+                stat_comp: "Taux de Livraison (OTIF)",
+                services_subtitle: "Spécialités",
                 services_title: "Mes Services",
                 tools_subtitle: "Tech Stack",
                 tools_title: "Outils & Technologies",
@@ -1372,22 +1658,22 @@
                 comp_title: "Compétences Clés",
                 comp_negot: "Négociation",
                 comp_leadership: "Leadership",
-                comp_risk: "Gestion Risques",
-                comp_global: "Sourcing Global",
-                comp_contracts: "Droit Contrats",
-                comp_cost: "Analyse Coûts",
+                comp_risk: "Gestion des Risques",
+                comp_global: "Sourcing International",
+                comp_contracts: "Droit des Contrats",
+                comp_cost: "Analyse des Coûts",
                 comp_logistics: "Logistique",
-                comp_analytics: "Analyse Dépenses",
-                lifecycle_step1: "Analyse de Marché",
-                lifecycle_step2: "Gestion Fournisseurs",
-                lifecycle_step3: "Optimisation P2P",
-                serv_desc_1: "Recherche de marché complète et benchmarking pour identifier des fournisseurs internationaux qualifiés.",
-                serv_desc_2: "Négociation de contrats, suivi des KPI et renforcement des relations pour assurer la livraison OTIF.",
-                serv_desc_3: "Rationalisation du cycle Purchase-to-Pay utilisant l'analyse IA et les outils numériques.",
+                comp_analytics: "Analyse des Dépenses",
+                serv_title_1: "Optimisation P2P",
+                serv_title_2: "Sourcing Stratégique & Gestion Fournisseurs",
+                serv_title_3: "Implémentation de l'IA dans les Achats",
+                serv_desc_1: "Gestion du cycle complet Purchase-to-Pay, de la demande à l'achat, en réduisant les temps de cycle et les coûts, et en améliorant la visibilité à chaque étape de l'approvisionnement.",
+                serv_desc_2: "Exécution des opérations de sourcing de bout en bout (RFI, RFQ, RFP), qualification des fournisseurs, évaluation des offres, négociation de contrats, suivi des KPI et gestion des performances sur les marchés internationaux.",
+                serv_desc_3: "Transformation des processus d'achat manuels en les reconstruisant avec l'IA. Je conçois et implémente des flux de travail qui font gagner des heures à votre équipe chaque semaine sans changer les outils qu'elle utilise déjà.",
                 resume_subtitle: "Ma Carrière",
                 resume_title: "CV",
                 tab_exp: "Expérience Pro",
-                tab_edu: "Éducation",
+                tab_edu: "Formation",
                 btn_read_more: "Lire plus",
                 exp_fanin_role: "Spécialiste Approvisionnement & Sourcing",
                 exp_fanin_date: "Avr 2024 – Présent",
@@ -1440,9 +1726,46 @@
                 res_excel3_desc: "Un outil d'évaluation automatisé que j'ai conçu pour rationaliser l'analyse des appels d'offres. Comprend des contrôles de conformité, une notation technique/commerciale pondérée et des comparaisons directes des fournisseurs.",
                 res_excel3_btn: "Accéder au Modèle de Matrice",
                 contact_title: "Contactez-moi",
-                contact_text: "Ouvert aux postes entièrement à distance dans le monde entier. Basé en Algérie — disponible immédiatement.",
-                footer_text: "&copy; 2025 Ilyes Boudissa. Tous droits réservés.",
+                contact_text: "Ouvert aux postes 100% en télétravail à l'international. Basé en Algérie — disponible immédiatement.",
+                footer_text: "© 2025 Ilyes Boudissa. Tous droits réservés.",
                 
+                // AI Automations Section
+                ai_sec_subtitle: "Transformation des processus d'achat manuels en flux de travail automatisés",
+                ai_sec_title: "Processus d'Approvisionnement Automatisés avec l'IA",
+                ai_click_hint: "Cliquez pour en savoir plus",
+                ai_c1_title: "Générateur d'Appels d'Offres IA",
+                ai_c1_tagline: "Spécifications en entrée, RFQ en sortie",
+                ai_c1_desc: "Rédige automatiquement un document RFQ complet et professionnel à partir de spécifications techniques et d'exigences commerciales en quelques secondes. Couvre l'étendue des fournitures, les conditions de livraison, les incoterms et la conformité.",
+                ai_c2_title: "Automatisation de l'Évaluation des Offres",
+                ai_c2_tagline: "Évaluez chaque offre instantanément",
+                ai_c2_desc: "Évalue et classe automatiquement les offres des fournisseurs à l'aide de critères techniques et commerciaux pondérés. Les offres non conformes sont signalées et exclues. Les offres restantes sont classées par prix, délai, conditions de paiement et risque.",
+                ai_c3_title: "Suivi de Performance Fournisseur",
+                ai_c3_tagline: "Intelligence fournisseur en temps réel",
+                ai_c3_desc: "Surveille en continu les KPI des fournisseurs, y compris l'OTIF, le taux de rejet qualité et le respect des délais. Des alertes automatiques sont déclenchées lorsque les performances tombent en dessous des seuils définis.",
+                ai_c4_title: "Rapprochement Tripartite Automatisé",
+                ai_c4_tagline: "Rapprocher, vérifier, signaler",
+                ai_c4_desc: "Rapproche automatiquement les factures entrantes avec le bon de commande et le bon de réception correspondants. Les écarts de quantité, de prix unitaire ou de conditions de livraison sont signalés instantanément.",
+                ai_c5_title: "Analyseur de Risques Contractuels",
+                ai_c5_tagline: "Signalez les risques avant de signer",
+                ai_c5_desc: "Analyse les termes des contrats et des bons de commande pour identifier les clauses à risque, les protections manquantes et les conditions défavorables. Met en évidence les clauses spécifiques concernant la responsabilité, les conditions de paiement, etc.",
+                ai_c6_title: "Automatisation de l'Expediting",
+                ai_c6_tagline: "Aucun retard ne passe inaperçu",
+                ai_c6_desc: "Suit en temps réel les jalons de production et d'expédition par rapport aux dates de livraison prévues. Lorsqu'un fournisseur manque un jalon, des alertes automatiques sont envoyées au fournisseur et à l'équipe projet.",
+                ai_tag_sourcing: "Sourcing",
+                ai_tag_rfx: "RFx",
+                ai_tag_automation: "Automatisation",
+                ai_tag_eval: "Évaluation",
+                ai_tag_comp: "Conformité",
+                ai_tag_vendor: "Gestion Fournisseurs",
+                ai_tag_kpi: "KPI",
+                ai_tag_alerts: "Alertes",
+                ai_tag_p2p: "P2P",
+                ai_tag_finance: "Finance",
+                ai_tag_contracts: "Contrats",
+                ai_tag_risk: "Risque",
+                ai_tag_logistics: "Logistique",
+                ai_tag_expediting: "Expediting",
+
                 // Modals
                 modal_fanin_gen: "Responsable de l'exécution des stratégies de sourcing de bout en bout dans le secteur de l'énergie. Focus sur l'utilisation de l'analyse de données et des outils d'IA pour évaluer les propositions des fournisseurs, optimiser le cycle P2P et garantir une livraison de projet OTIF cohérente pour divers lots techniques.",
                 modal_engcb_pm_gen: "Direction des opérations d'approvisionnement globales pour des projets EPC à grande échelle. Les principales responsabilités comprenaient la direction d'équipes interfonctionnelles, la normalisation des protocoles de conformité (ISO/Incoterms) et la négociation de contrats internationaux complexes pour respecter les budgets.",
@@ -1481,7 +1804,8 @@
             document.querySelectorAll('[data-key]').forEach(el => {
                 const key = el.getAttribute('data-key');
                 if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
+                    // Cybersecurity fix: Use textContent instead of innerHTML to prevent XSS injection
+                    el.textContent = translations[lang][key];
                 }
             });
         }
@@ -1557,7 +1881,7 @@
         mobileMenuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
 
         // Typewriter Effect Logic
-        const words = ["Senior Procurement Specialist", "Project Manager", "Supply Chain Expert", "AI Enthusiast"];
+        const words = ["Senior Procurement Specialist", "Project Manager", "Strategic Sourcing & RFx", "AI Enthusiast"];
         let i = 0;
         let timer;
 
@@ -1599,7 +1923,19 @@
         const scrollToTopBtn = document.getElementById('scrollToTopBtn');
         const scrollProgress = document.getElementById('scroll-progress');
         
-        window.onscroll = function() {
+        let isScrolling = false;
+
+        window.addEventListener('scroll', function() {
+            if (!isScrolling) {
+                window.requestAnimationFrame(function() {
+                    handleScroll();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true }); // passive listener drastically improves scroll performance
+
+        function handleScroll() {
             // Scroll to Top
             if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
                 scrollToTopBtn.classList.add('show');
@@ -1633,7 +1969,7 @@
                     link.classList.add('active');
                 }
             });
-        };
+        }
 
         scrollToTopBtn.onclick = function() {
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -1643,6 +1979,36 @@
         selectLanguage('en');
         // Start Typewriter
         typingEffect();
+
+        // --- Counter Animation ---
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    const duration = 1500; // ms
+                    const step = target / (duration / 16); // ~60fps
+                    let current = 0;
+
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            counter.innerText = Math.ceil(current);
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCounter();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        counters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
 
         // --- Intersection Observer for Scroll Animations ---
         const observer = new IntersectionObserver((entries) => {
@@ -1723,6 +2089,22 @@
                 });
             });
         }
+
+        // --- Flip Card Click Logic ---
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Toggle the 'is-flipped' class on click
+                this.classList.toggle('is-flipped');
+            });
+            
+            // Allow flipping with Enter/Space key for accessibility
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.classList.toggle('is-flipped');
+                }
+            });
+        });
 
     </script>
 </body>
