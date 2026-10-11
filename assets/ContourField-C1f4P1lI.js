@@ -1,4 +1,4 @@
-import{r as He,j as Dn,u as sx,a as Ki}from"./index-Dcocwqxr.js";function ox(r){return r&&r.__esModule&&Object.prototype.hasOwnProperty.call(r,"default")?r.default:r}/**
+import{r as He,j as Dn,u as sx,a as Ki}from"./index-B9mj8LUC.js";function ox(r){return r&&r.__esModule&&Object.prototype.hasOwnProperty.call(r,"default")?r.default:r}/**
  * @license
  * Copyright 2010-2024 Three.js Authors
  * SPDX-License-Identifier: MIT
@@ -3866,7 +3866,11 @@ No matching component was found for:
     gl_Position = vec4(position.xy, 0.0, 1.0);
   }
 `,lC=`
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
   precision highp float;
+  #else
+  precision mediump float;
+  #endif
   varying vec2 vUv;
   uniform float uTime;
   uniform vec2 uRes;
@@ -3879,8 +3883,9 @@ No matching component was found for:
   uniform vec3 uAccent;
 
   vec2 hash(vec2 p) {
-    p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
-    return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+    vec3 p3 = fract(vec3(p.xyx) * vec3(0.1031, 0.1030, 0.0973));
+    p3 += dot(p3, p3.yzx + 33.33);
+    return -1.0 + 2.0 * fract((p3.xx + p3.yz) * p3.zy);
   }
   float noise(vec2 p) {
     const float K1 = 0.366025404;
